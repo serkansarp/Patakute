@@ -115,14 +115,12 @@ int main() {
 	cout << p2.getDeger() << endl;
 
 
-
-	//Kart p1 = d.getir();
-	//p1.yazdir();
-	//cout << p1.getDeger() << endl;
-
-	//p1 = d.getir();
-	//p1.yazdir();
-	//cout << p1.getDeger() << endl;
+	if (p2.getDeger() == p1.getDeger()) {
+		cout << "aynı değerdeki kart geldi, yerdekileri topla";
+	}
+	else{
+		cout << "farklı değerlerde kartlar, oyun devam ediyor";
+	}
 	
 	
 	
