@@ -119,7 +119,7 @@ int main() {
 		cout << "aynı değerdeki kart geldi, yerdekileri topla";
 	}
 	else{
-		cout << "farklı değerlerde kartlar, oyun devam ediyor";
+		cout << "farklı değerlerde kartlar, oyuna devam ediyoruz";
 	}
 	
 	
