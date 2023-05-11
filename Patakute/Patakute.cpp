@@ -65,18 +65,74 @@ public:
 		}	cout << endl;
 	}
 
+	// İlk kart solda, yanında önceki kartın izi olmadan yazdırılır
 	void ilkKartYazdir()const {
-		int seriCharSayi = 0;
+		int seriCharSayi = 0;	// char() içine koyulacak sayı #define'dan bakılarak belirlendi, ascii olarak gösterilebilir
 		if (this->seri == 0) { seriCharSayi = 6; }
 		if (this->seri == 1) { seriCharSayi = 5; }
 		if (this->seri == 2) { seriCharSayi = 4; }
 		if (this->seri == 3) { seriCharSayi = seri; }
-		
-		cout << " .---." << endl;
+
+		cout << " ,---," << endl;
 		cout << " |" << char(seriCharSayi) << "  |" << endl;
-		cout << " | " << deger << " |" << endl;
+		cout << " |";
+		
+		// 1'lerde A yazdırmak için ara ayar
+		if (this->deger == 1) { cout << " A "; }
+		
+		// 10'lu kartta sağa veya sola yaslı olmasının çirkin görüntüsü +
+		// resimli kartların J-Q-K charlarıyla görüntülenmesi için çözüm
+		if (deger > 9) { 
+			if (deger == 10)cout << "1 0";
+			else if (deger > 10) {
+				cout << " ";
+				if (this->deger == 11) { cout << "J"; }
+				if (this->deger == 12) { cout << "Q"; }
+				if (this->deger == 13) { cout << "K"; }
+				cout << " ";
+			}
+		}else {	if (this->deger!=1)cout << " " << deger << " ";
+		}
+		cout << "|" << endl;
 		cout << " |  " << char(seriCharSayi) << "|" << endl;
 		cout << " '---'" << endl;
+	}
+
+
+	// 2. ve çift sayılı sırada atılan kartlar, ilkinin üzerinde olması için solunda, altındaki kartın solunun
+	// izi görünür
+	void ciftSayiKartYazdir()const {
+		int seriCharSayi = 0;	// char() içine koyulacak sayı #define'dan bakılarak belirlendi, ascii olarak gösterilebilir
+		if (this->seri == 0) { seriCharSayi = 6; }
+		if (this->seri == 1) { seriCharSayi = 5; }
+		if (this->seri == 2) { seriCharSayi = 4; }
+		if (this->seri == 3) { seriCharSayi = seri; }
+
+		cout << " ,,---," << endl;
+		cout << " ||" << char(seriCharSayi) << "  |" << endl;
+		cout << " ||";
+
+		// 1'lerde A yazdırmak için ara ayar
+		if (this->deger == 1) { cout << " A "; }
+
+		// 10'lu kartta sağa veya sola yaslı olmasının çirkin görüntüsü +
+		// resimli kartların J-Q-K charlarıyla görüntülenmesi için çözüm
+		if (deger > 9) {
+			if (deger == 10)cout << "1 0";
+			else if (deger > 10) {
+				cout << " ";
+				if (this->deger == 11) { cout << "J"; }
+				if (this->deger == 12) { cout << "Q"; }
+				if (this->deger == 13) { cout << "K"; }
+				cout << " ";
+			}
+		}
+		else {
+			if (this->deger != 1)cout << " " << deger << " ";
+		}
+		cout << "|" << endl;
+		cout << " ||  " << char(seriCharSayi) << "|" << endl;
+		cout << " ''---'" << endl;
 	}
 
 
@@ -142,8 +198,7 @@ int main() {
 	p2.yazdir();
 	cout << p2.getDeger() << endl;
 
-
-
+	
 
 	if (p2.getDeger() == p1.getDeger() || p2.getDeger() == 11) {
 		cout << "Aynı kart ya da Bacak geldi, topla" << endl;
@@ -153,11 +208,12 @@ int main() {
 	}
 
 	p1.ilkKartYazdir();
-
+	p2.ciftSayiKartYazdir();
+	//p2.tekSayiKartYazdir();
 
 	/*.---.
 	|♦  |
-	| 4 |
+	|1 0|
 	|  ♦|
 	'---'*/
 
