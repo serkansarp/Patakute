@@ -1,29 +1,29 @@
-#include <iostream>
-#include <clocale>	//	Türkçe
-#include <ctime>	//	srand için gerekli
+ï»¿#include <iostream>
+#include <clocale>	//	TÃ¼rkÃ§e
+#include <ctime>	//	srand iÃ§in gerekli
 using namespace std;
 
 /*
-Süreç:
-+ 2 kullanıcı p1-p2 yazıldı
-+ Çekilen kartların yazılması ve değerinin gösterilmesi arasındaki sıkıntı giderildi
-- Oynanış şekliyle aynı olması için kartlar karıldıktan sonra rand%3 ile 2ye bölünecek
-- Belki basit bir kart görüntüsü / ascii veya utf karakter yazımıyla 
-- Kurallar geçirilecek
+SÃ¼reÃ§:
++ 2 kullanÄ±cÄ± p1-p2 yazÄ±ldÄ±
++ Ã‡ekilen kartlarÄ±n yazÄ±lmasÄ± ve deÄŸerinin gÃ¶sterilmesi arasÄ±ndaki sÄ±kÄ±ntÄ± giderildi
+- OynanÄ±ÅŸ ÅŸekliyle aynÄ± olmasÄ± iÃ§in kartlar karÄ±ldÄ±ktan sonra rand%3 ile 2ye bÃ¶lÃ¼necek
+- Belki basit bir kart gÃ¶rÃ¼ntÃ¼sÃ¼ / ascii veya utf karakter yazÄ±mÄ±yla 
+- Kurallar geÃ§irilecek
 - Test
-- Başlık
+- BaÅŸlÄ±k
 
 
-PATAKÜTE - v.1
-2017 sonlarında kaybettiğimiz babam Salim SARP'ın, 2022 sonlarında Gliablastoma'dan kaybettiğimiz
-kardeşim Volkan SARP'la bana öğretmiş olduğu oyundur. Bir iskambil destesini tahminen 2'ye ayırarak
-bölüşülür. Kullanıcılar ellerindeki kağıtların içeriğine bakmadan en üstten yere kartları atarak oynarlar.
-Basit bir oyundur. Aynı kartı denk getiren yerdekileri kendi tarafına toplar. Bacak, yine üzerine geldiği
-kartları toplar. Son kağıtları ise en son alan taraf alır. Oyun sonunda en çok kağıt toplayan kazanır.
-Basitliği ve çabuk kurulması, masada, yerde, kanepede, her yerde oynanması ile kardeşimle yıllarca
-oynamışızdır. * İrfan Altıok, Yazılıma Gönül Ver OOP Eğitim Seti 38-39. videosu pratiği olarak geliştiriliyor
+PATAKÃœTE - v.1
+2017 sonlarÄ±nda kaybettiÄŸimiz babam Salim SARP'Ä±n, 2022 sonlarÄ±nda Gliablastoma'dan kaybettiÄŸimiz
+kardeÅŸim Volkan SARP'la bana Ã¶ÄŸretmiÅŸ olduÄŸu oyundur. Bir iskambil destesini tahminen 2'ye ayÄ±rarak
+bÃ¶lÃ¼ÅŸÃ¼lÃ¼r. KullanÄ±cÄ±lar ellerindeki kaÄŸÄ±tlarÄ±n iÃ§eriÄŸine bakmadan en Ã¼stten yere kartlarÄ± atarak oynarlar.
+Basit bir oyundur. AynÄ± kartÄ± denk getiren yerdekileri kendi tarafÄ±na toplar. Bacak, yine Ã¼zerine geldiÄŸi
+kartlarÄ± toplar. Son kaÄŸÄ±tlarÄ± ise en son alan taraf alÄ±r. Oyun sonunda en Ã§ok kaÄŸÄ±t toplayan kazanÄ±r.
+BasitliÄŸi ve Ã§abuk kurulmasÄ±, masada, yerde, kanepede, her yerde oynanmasÄ± ile kardeÅŸimle yÄ±llarca
+oynamÄ±ÅŸÄ±zdÄ±r. * Ä°rfan AltÄ±ok, YazÄ±lÄ±ma GÃ¶nÃ¼l Ver OOP EÄŸitim Seti 38-39. videosu pratiÄŸi olarak geliÅŸtiriliyor
 
-...Aynı mezarda birlikte uyuyor olan babam ve kardeşimin güzel anısına ithafen...
+...AynÄ± mezarda birlikte uyuyor olan babam ve kardeÅŸimin gÃ¼zel anÄ±sÄ±na ithafen...
 */
 
 
@@ -33,25 +33,25 @@ oynamışızdır. * İrfan Altıok, Yazılıma Gönül Ver OOP Eğitim Seti 38-39. videosu 
 #define karo (2)
 #define kupa (3)
 
-//	Define As veya Özel Kartlar
+//	Define As veya Ã–zel Kartlar
 #define as (1)
 #define bacak (11)
 #define kiz (12)
 #define papaz (13)
 
-//	Kart Sınıfı
+//	Kart SÄ±nÄ±fÄ±
 class Kart {
 private:
 	int seri;
 	int deger;
 public:
-	Kart(int seri=maca,int deger=2):seri(seri),deger(deger){}	// Parametresiz gelen istekler Maça 2 dönecek
-	int getSeri() {		return seri;	}	//	Encalsulation gereği getterlar
+	Kart(int seri=maca,int deger=2):seri(seri),deger(deger){}	// Parametresiz gelen istekler MaÃ§a 2 dÃ¶necek
+	int getSeri() {		return seri;	}	//	Encalsulation gereÄŸi getterlar
 	int getDeger() {	return deger;	}
 	
-	void yazdir()const {	//	Seri ve değerlerin düzgün yazdırılabilmesi için Switch-Case kullanıldı
+	void yazdir()const {	//	Seri ve deÄŸerlerin dÃ¼zgÃ¼n yazdÄ±rÄ±labilmesi iÃ§in Switch-Case kullanÄ±ldÄ±
 		switch (seri) {
-		case maca: { cout << "Maça"; break; }
+		case maca: { cout << "MaÃ§a"; break; }
 		case sinek: { cout << "Sinek"; break; }
 		case karo: { cout << "Karo"; break; }
 		case kupa: { cout << "Kupa"; break; }
@@ -59,72 +59,111 @@ public:
 		switch (deger) {
 		case as: { cout << "As"; break; }
 		case bacak: { cout << "Bacak"; break; }
-		case kiz: { cout << "Kız"; break; }
+		case kiz: { cout << "KÄ±z"; break; }
 		case papaz: { cout << "Papaz"; break; }
 		default: {cout << deger; }
 		}	cout << endl;
 	}
+
+	void ilkKartYazdir()const {
+		int seriCharSayi = 0;
+		if (this->seri == 0) { seriCharSayi = 6; }
+		if (this->seri == 1) { seriCharSayi = 5; }
+		if (this->seri == 2) { seriCharSayi = 4; }
+		if (this->seri == 3) { seriCharSayi = seri; }
+		
+		cout << " .---." << endl;
+		cout << " |" << char(seriCharSayi) << "  |" << endl;
+		cout << " | " << deger << " |" << endl;
+		cout << " |  " << char(seriCharSayi) << "|" << endl;
+		cout << " '---'" << endl;
+	}
+
+
+
+	/*â™¦karo4
+		â™¥kupa3
+		â™£sinek5
+		â™ maÃ§a6*/
+
 };
 
-//	Deste Sınıfı
+//	Deste SÄ±nÄ±fÄ±
 class Deste {
 private:
 	int top;
-	Kart kartlar[52];	//	Kart sınıfından 52 Kart'lık boş deste
+	Kart kartlar[52];	//	Kart sÄ±nÄ±fÄ±ndan 52 Kart'lÄ±k boÅŸ deste
 public:
 	
-	Deste() {			//	Deste kurucusu ile burada döngüyle boş kartların üzerine isimleri yazıldı
+	Deste() {			//	Deste kurucusu ile burada dÃ¶ngÃ¼yle boÅŸ kartlarÄ±n Ã¼zerine isimleri yazÄ±ldÄ±
 		top = 0;
 		for (int i = 0; i < 52; i++) {
 			kartlar[i] = Kart(i / 13, i % 13 + 1);
 		}
 	}
 
-	void desteYazdir()const {	//	İstenildiğinde döngü ile deste yazdırılabiliyor (Kart::yazdır kullanılıyor)
+	void desteYazdir()const {	//	Ä°stenildiÄŸinde dÃ¶ngÃ¼ ile deste yazdÄ±rÄ±labiliyor (Kart::yazdÄ±r kullanÄ±lÄ±yor)
 		for (int i = 0; i < 52; i++) {
 			kartlar[i].yazdir();
 		}
 	}
 
-	//	İlk anda define'lara göre sıralı bir deste olduğu için desteyi karmak gerekecek
-	void karistir(int kackere=15180) {	//	Kardeşim Volkan SARP'ın dünyada yaşadığı gün sayısı default parametredir
-		for (int i = 0; i < kackere; i++) {	//	Yüksek bir değer gibi görünebilir, bilinçli olarak düşürmedim, parametreli
-			swap(kartlar[rand() % 52],kartlar[rand() % 52]);	// gönderildiğinde o kadar karıştırılacaktır.
+	//	Ä°lk anda define'lara gÃ¶re sÄ±ralÄ± bir deste olduÄŸu iÃ§in desteyi karmak gerekecek
+	void karistir(int kackere=15180) {	//	KardeÅŸim Volkan SARP'Ä±n dÃ¼nyada yaÅŸadÄ±ÄŸÄ± gÃ¼n sayÄ±sÄ± default parametredir
+		for (int i = 0; i < kackere; i++) {	//	YÃ¼ksek bir deÄŸer gibi gÃ¶rÃ¼nebilir, bilinÃ§li olarak dÃ¼ÅŸÃ¼rmedim, parametreli
+			swap(kartlar[rand() % 52],kartlar[rand() % 52]);	// gÃ¶nderildiÄŸinde o kadar karÄ±ÅŸtÄ±rÄ±lacaktÄ±r.
 		}
 	}
 
 	Kart getir() {
-		return kartlar[top++];	//	return kartlar[top]; top++; yapılabilirdi, kısaltılmış postfix kullanıldı
+		return kartlar[top++];	//	return kartlar[top]; top++; yapÄ±labilirdi, kÄ±saltÄ±lmÄ±ÅŸ postfix kullanÄ±ldÄ±
 	}
 };
 
 
 int main() {
-	setlocale(LC_ALL,"Turkish");
+	setlocale(LC_ALL, "Turkish");
 	srand(time(0));
 
-	Deste d;		//	Deste yaptık
-	d.karistir();	//	Karıştırdık
-	
+	Deste d;		//	Deste yaptÄ±k
+	d.karistir();	//	KarÄ±ÅŸtÄ±rdÄ±k
+
+	int p1KartSayisi = 0;
+	int p2KartSayisi = 0;
+	int yerdekiKartSayisi = 0;
+
+
+
 	Kart p1 = d.getir();
 	p1.yazdir();
 	cout << p1.getDeger() << endl;
-	
+
 	Kart p2 = d.getir();
 	p2.yazdir();
 	cout << p2.getDeger() << endl;
 
 
-	if (p2.getDeger() == p1.getDeger()) {
-		cout << "aynı değerdeki kart geldi, yerdekileri topla";
-	}
-	else{
-		cout << "farklı değerlerde kartlar, oyuna devam ediyoruz";
-	}
-	
-	
-	
 
 
+	if (p2.getDeger() == p1.getDeger() || p2.getDeger() == 11) {
+		cout << "AynÄ± kart ya da Bacak geldi, topla" << endl;
+	}
+	else {
+		cout << "FarklÄ± deÄŸerlerde kartlar, oyuna devam" << endl;
+	}
+
+	p1.ilkKartYazdir();
+
+
+	/*.---.
+	|â™¦  |
+	| 4 |
+	|  â™¦|
+	'---'*/
+
+		/*â™¦karo4
+		â™¥kupa3
+		â™£sinek5
+		â™ maÃ§a6*/
 	return 0;
 }	//	T21B/476 / 40.0007035,32.7898625
