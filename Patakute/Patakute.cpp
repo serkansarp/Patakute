@@ -187,6 +187,7 @@ int main() {
 	int p1KartSayisi = 0;
 	int p2KartSayisi = 0;
 	int yerdekiKartSayisi = 0;
+	int kacinciKartAtilacak = 1;
 
 
 
@@ -207,9 +208,14 @@ int main() {
 		cout << "Farklı değerlerde kartlar, oyuna devam" << endl;
 	}
 
-	p1.ilkKartYazdir();
+	if (kacinciKartAtilacak == 1)p1.ilkKartYazdir();
+	else if (kacinciKartAtilacak % 2 == 0)p2.ciftSayiKartYazdir();
+	else if (kacinciKartAtilacak % 2 == 1)p2.tekSayiKartYazdir();	// p2 değil tabi değişecek sürekli
+	// ayrıca tekSayiKartYazdir özelliği yok
+
+	
 	p2.ciftSayiKartYazdir();
-	//p2.tekSayiKartYazdir();
+	
 
 	/*.---.
 	|♦  |
