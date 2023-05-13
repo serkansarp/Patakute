@@ -101,7 +101,7 @@ public:
 
 	// 2. ve çift sayılı sırada atılan kartlar, ilkinin üzerinde olması için solunda, altındaki kartın solunun
 	// izi görünür
-	void ciftSayiKartYazdir()const {
+	void ikincilSiraSayiKartYazdir()const {
 		int seriCharSayi = 0;	// char() içine koyulacak sayı #define'dan bakılarak belirlendi, ascii olarak gösterilebilir
 		if (this->seri == 0) { seriCharSayi = 6; }
 		if (this->seri == 1) { seriCharSayi = 5; }
@@ -133,6 +133,40 @@ public:
 		cout << "|" << endl;
 		cout << " ||  " << char(seriCharSayi) << "|" << endl;
 		cout << " ''---'" << endl;
+	}
+
+	void tekilSiraSayiKartYazdir()const {
+		int seriCharSayi = 0;	// char() içine koyulacak sayı #define'dan bakılarak belirlendi, ascii olarak gösterilebilir
+		if (this->seri == 0) { seriCharSayi = 6; }
+		if (this->seri == 1) { seriCharSayi = 5; }
+		if (this->seri == 2) { seriCharSayi = 4; }
+		if (this->seri == 3) { seriCharSayi = seri; }
+
+		cout << " ,---,," << endl;
+		cout << " |" << char(seriCharSayi) << "  ||" << endl;
+		cout << " |";
+
+		// 1'lerde A yazdırmak için ara ayar
+		if (this->deger == 1) { cout << " A "; }
+
+		// 10'lu kartta sağa veya sola yaslı olmasının çirkin görüntüsü +
+		// resimli kartların J-Q-K charlarıyla görüntülenmesi için çözüm
+		if (deger > 9) {
+			if (deger == 10)cout << "1 0";
+			else if (deger > 10) {
+				cout << " ";
+				if (this->deger == 11) { cout << "J"; }
+				if (this->deger == 12) { cout << "Q"; }
+				if (this->deger == 13) { cout << "K"; }
+				cout << " ";
+			}
+		}
+		else {
+			if (this->deger != 1)cout << " " << deger << " ";
+		}
+		cout << "||" << endl;
+		cout << " |  " << char(seriCharSayi) << "||" << endl;
+		cout << " '---''" << endl;
 	}
 
 
@@ -209,12 +243,16 @@ int main() {
 	}
 
 	if (kacinciKartAtilacak == 1)p1.ilkKartYazdir();
-	else if (kacinciKartAtilacak % 2 == 0)p2.ciftSayiKartYazdir();
-	else if (kacinciKartAtilacak % 2 == 1)p2.tekSayiKartYazdir();	// p2 değil tabi değişecek sürekli
+	else if (kacinciKartAtilacak % 2 == 0)p2.ikincilSiraSayiKartYazdir();
+	else if (kacinciKartAtilacak % 2 == 1)p2.tekilSiraSayiKartYazdir();	// p2 değil tabi değişecek sürekli
 	// ayrıca tekSayiKartYazdir özelliği yok
 
 	
-	p2.ciftSayiKartYazdir();
+	p2.ikincilSiraSayiKartYazdir();
+
+	p1 = d.getir();
+	cout << p1.getDeger() << endl;
+	p1.tekilSiraSayiKartYazdir();
 	
 
 	/*.---.
