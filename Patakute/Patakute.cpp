@@ -14,7 +14,7 @@ Süreç:
 - Başlık
 
 
-PATAKÜTE - v.1
+PATAKÜTE - v.1.1
 2017 sonlarında kaybettiğimiz babam Salim SARP'ın, 2022 sonlarında Gliablastoma'dan kaybettiğimiz
 kardeşim Volkan SARP'la bana öğretmiş olduğu oyundur. Bir iskambil destesini tahminen 2'ye ayırarak
 bölüşülür. Kullanıcılar ellerindeki kağıtların içeriğine bakmadan en üstten yere kartları atarak oynarlar.
