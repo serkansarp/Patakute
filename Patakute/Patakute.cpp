@@ -5,7 +5,7 @@ using namespace std;
 
 /*
 Süreç:
-+ 2 kullanıcı p1-p23 yazıldı
++ 2 kullanıcı p1-p2 yazıldı
 + Çekilen kartların yazılması ve değerinin gösterilmesi arasındaki sıkıntı giderildi
 - Oynanış şekliyle aynı olması için kartlar karıldıktan sonra rand%3 ile 2ye bölünecek
 - Belki basit bir kart görüntüsü / ascii veya utf karakter yazımıyla 
