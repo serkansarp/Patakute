@@ -214,6 +214,7 @@ public:
 int main() {
 	setlocale(LC_ALL, "Turkish");
 	srand(time(0));
+		
 
 	Deste d;		//	Deste yaptık
 	d.karistir();	//	Karıştırdık
@@ -247,22 +248,19 @@ int main() {
 	else if (kacinciKartAtilacak % 2 == 1)p2.tekilSiraSayiKartYazdir();	// p2 değil tabi değişecek sürekli
 	// ayrıca tekSayiKartYazdir özelliği yok
 
-	
+	kacinciKartAtilacak++; cout << kacinciKartAtilacak;
+
 	p2.ikincilSiraSayiKartYazdir();
+
+	kacinciKartAtilacak++; cout << kacinciKartAtilacak;
 
 	p1 = d.getir();
 	cout << p1.getDeger() << endl;
 	p1.tekilSiraSayiKartYazdir();
 	
+	kacinciKartAtilacak++; cout << kacinciKartAtilacak;
 
-	/*
-	İlk Kart	İkinci Kart		Üçüncü Kart
-	,---,		,,---,			,---,,
-	|♦  |		||♥  |			|♣  ||
-	|1 0|		|| 5 |			| K ||
-	|  ♦|		||  ♥|			|  ♣||
-	'---'		''---'			'---''
-	*/
+	
 
 		/*♦karo4
 		♥kupa3
