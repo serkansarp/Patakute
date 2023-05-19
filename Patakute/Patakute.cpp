@@ -1,4 +1,5 @@
 ﻿#include <iostream>
+#include <iomanip>
 #include <clocale>	//	Türkçe
 #include <ctime>	//	srand için gerekli
 using namespace std;
@@ -214,18 +215,91 @@ public:
 int main() {
 	setlocale(LC_ALL, "Turkish");
 	srand(time(0));
-		
+	
+	Kart p2(maca, 99);	//	İlk atılan kartın döngü içerisinde kendisinden önce atılmış
+	// p2.yazdir();		//	bir kart ile karşılaştırılması için ön değerli Maça 99 kartı yaratıldı
 
 	Deste d;		//	Deste yaptık
 	d.karistir();	//	Karıştırdık
 
-	int p1KartSayisi = 0;
-	int p2KartSayisi = 0;
-	int yerdekiKartSayisi = 0;
-	int kacinciKartAtilacak = 1;
+	int p1Puan = 0;
+	int p2Puan = 0;
+	int yerdekiKart = 0;
+	int kalanKart = 52;
+	
+	// Atıflı Ascii Logo çalışması, backslashlarda \\ kullanıldı
+	cout << "  by Serkan SARP			                                   Logo: Manytools.org" << endl;
+	cout << " _______________________________________________________________________________________" << endl;
+	cout << "                                                   ___   ___ " << endl;
+	cout << "                                                  |\\__\\ |\\__\\" << endl;
+	cout << "                                                  \\|__| \\|__|" << endl;
+	cout << "  ________  ________  _________  ________  ___  __    ___  ___  _________  _______" << endl;
+	cout << " |\\   __  \\|\\   __  \\|\\___   ___|\\   __  \\|\\  \\|\\  \\ |\\  \\|\\  \\|\\___   __\\|\\  ___ \\" << endl;
+	cout << " \\ \\  \\|\\  \\ \\  \\|\\  \\|___ \\  \\_\\ \\  \\|\\  \\ \\  \\/  /|\\ \\  \\\\\\  \\|___ \\  \\/\\ \\   __/|" << endl;
+	cout << "  \\ \\   ____\\ \\   __  \\   \\ \\  \\ \\ \\   __  \\ \\   ___  \\ \\  \\\\\\  \\   \\ \\  \\ \\ \\  \\_|/__" << endl;
+	cout << "   \\ \\  \\___|\\ \\  \\ \\  \\   \\ \\  \\ \\ \\  \\ \\  \\ \\  \\\\ \\  \\ \\  \\\\\\  \\   \\ \\  \\ \\ \\  \\_|\\ \\" << endl;
+	cout << "    \\ \\__\\    \\ \\__\\ \\__\\   \\ \\__\\ \\ \\__\\ \\__\\ \\__\\\\ \\__\\ \\_______\\   \\ \\__\\ \\ \\_______\\" << endl;
+	cout << "     \\|__|     \\|__|\\|__|    \\|__|  \\|__|\\|__|\\|__| \\|__|\\|_______|    \\|__|  \\|_______|" << endl;
+	cout << " _______________________________________________________________________________________" << endl;
 
 
+	for (int i = 0; i < 2; i++) {
+		system("pause");
+		cout << "\033[14;1H\033[J";		//	Ekran temizliği için ansi kaçış kodu (linux+windows)
 
+		Kart p1 = d.getir();
+		p1.yazdir();
+		cout << "-- " << p1.getDeger() << endl;
+		
+		if (yerdekiKart == 0) {
+			cout << " - yerde kart yok" << endl;
+			yerdekiKart++;
+			kalanKart--;
+		} else {
+			if(p1.getDeger()==p2.getDeger()||p1.getDeger() == 11) {
+				cout << "--- p1 bacak ya da öncekiyle aynı kart, hepsini topla" << endl;
+				yerdekiKart = 0;
+				kalanKart--;
+			}
+		}
+
+		cout << " _______________________________________________________________________________________" << endl << endl;
+		cout << "  PC Puan: " << setprecision(2) << fixed << p1Puan << "\t\t|\t\tKalan Kart Sayısı  : " << kalanKart << endl;
+		cout << "  PC Puan: " << p2Puan << "\t\t|\t\tYerdeki Kart Sayısı: " << yerdekiKart << endl;
+		cout << " _______________________________________________________________________________________" << endl << endl;
+		
+		
+		system("pause");
+		cout << "\033[14;1H\033[J";		//	Ekran temizliği için ansi kaçış kodu (linux+windows)
+
+		Kart p2 = d.getir();
+		p2.yazdir();
+		cout << "-- " << p2.getDeger() << endl;
+		
+		if (yerdekiKart == 0) {
+			cout << " - yerde kart yok" << endl;
+			yerdekiKart++;
+			kalanKart--;
+		}
+		else {
+			if (p2.getDeger() == p1.getDeger() || p2.getDeger() == 11) {
+				cout << "--- p2 bacak ya da öncekiyle aynı kart, hepsini topla" << endl;
+				yerdekiKart = 0;
+				kalanKart--;
+			}
+		}
+		
+				
+		cout << " _______________________________________________________________________________________" << endl << endl;
+		cout << "  PC Puan: " << fixed << p1Puan << "\t\t|\t\tKalan Kart Sayısı  : " << kalanKart << endl;
+		cout << "  PC Puan: " << p2Puan << "\t\t|\t\tYerdeki Kart Sayısı: " << yerdekiKart << endl;
+		cout << " _______________________________________________________________________________________" << endl << endl;
+
+		
+		//
+	}
+
+	/*
 	Kart p1 = d.getir();
 	p1.yazdir();
 	cout << p1.getDeger() << endl;
@@ -235,7 +309,7 @@ int main() {
 	cout << p2.getDeger() << endl;
 
 	
-
+	
 	if (p2.getDeger() == p1.getDeger() || p2.getDeger() == 11) {
 		cout << "Aynı kart ya da Bacak geldi, topla" << endl;
 	}
@@ -259,12 +333,9 @@ int main() {
 	p1.tekilSiraSayiKartYazdir();
 	
 	kacinciKartAtilacak++; cout << kacinciKartAtilacak;
-
+	*/
 	
 
-		/*♦karo4
-		♥kupa3
-		♣sinek5
-		♠maça6*/
+		
 	return 0;
 }	//	T21B/476 / 40.0007035,32.7898625
