@@ -1,28 +1,31 @@
 ﻿#include <iostream>
-#include <iomanip>
+#include <iomanip>	//	Sekme kaymamaması için
 #include <clocale>	//	Türkçe
-#include <ctime>	//	srand için gerekli
+#include <ctime>	//	srand için
+#include <string>
 using namespace std;
 
 /*
 Süreç:
 + 2 kullanıcı p1-p2 yazıldı
 + Çekilen kartların yazılması ve değerinin gösterilmesi arasındaki sıkıntı giderildi
-- Oynanış şekliyle aynı olması için kartlar karıldıktan sonra rand%3 ile 2ye bölünecek
-- Belki basit bir kart görüntüsü / ascii veya utf karakter yazımıyla 
-- Kurallar geçirilecek
++ Belki basit bir kart görüntüsü / ascii veya utf karakter yazımıyla 
+** Kurallar geçirilecek
 - Test
-- Başlık
++ Başlık
 
 
 PATAKÜTE - v.1.1
-2017 sonlarında kaybettiğimiz babam Salim SARP'ın, 2022 sonlarında Gliablastoma'dan kaybettiğimiz
-kardeşim Volkan SARP'la bana öğretmiş olduğu oyundur. Bir iskambil destesini tahminen 2'ye ayırarak
-bölüşülür. Kullanıcılar ellerindeki kağıtların içeriğine bakmadan en üstten yere kartları atarak oynarlar.
-Basit bir oyundur. Aynı kartı denk getiren yerdekileri kendi tarafına toplar. Bacak, yine üzerine geldiği
-kartları toplar. Son kağıtları ise en son alan taraf alır. Oyun sonunda en çok kağıt toplayan kazanır.
-Basitliği ve çabuk kurulması, masada, yerde, kanepede, her yerde oynanması ile kardeşimle yıllarca
-oynamışızdır. * İrfan Altıok, Yazılıma Gönül Ver OOP Eğitim Seti 38-39. videosu pratiği olarak geliştiriliyor
+2017 sonlarında kaybettiğimiz babam Salim SARP'ın, 2023 başlarında Gliablastoma'dan kaybettiğimiz
+kardeşim Volkan SARP'la bana öğretmiş olduğu oyundur. Bir iskambil destesini kalınlığa bakıp tahminen 2'ye
+ayırarak bölüşülür. Kullanıcılar ellerindeki kağıtların içeriğine bakmadan en üstten yere kartları atarak
+oynarlar. Basit bir oyundur. Aynı kartı denk getiren yerdekileri kendi tarafına toplar. Herhangi bir kart
+hepsini toplar şeklinde bir kural yoktur. Son kağıtları ise en son alan taraf alır. Oyun sonunda en çok kağıt
+toplayan kazanır. Kalınlık ölçümü ya da yakınsa sayılması ile kazanan taraf belirlenir. Birkaç tur halinde
+oynanabilir '5 elin 3'ünü alan kazanır' gibi. Basitliği ve çabuk kurulması, masada, yerde, kanepede, her yerde
+oynanması ile kardeşimle yıllarca oynamışızdır. Ayrıca oyun boyunca hiçbir taraf kazanamazsa kazanan olmaz,
+babamın öğretimi ile PATA olunur. Bilgisayar oyuncu ismi Volkan olarak kalacaktır. İrfan Altıok, Yazılıma
+Gönül Ver OOP Eğitim Seti 38-39. videosu pratiği olarak geliştiriliyor
 
 ...Aynı mezarda birlikte uyuyor olan babam ve kardeşimin güzel anısına ithafen...
 */
@@ -170,13 +173,6 @@ public:
 		cout << " '---''" << endl;
 	}
 
-
-
-	/*♦karo4
-		♥kupa3
-		♣sinek5
-		♠maça6*/
-
 };
 
 //	Deste Sınıfı
@@ -199,6 +195,14 @@ public:
 		}
 	}
 
+	void kartYazdir(int k=0) {
+		kartlar[k].yazdir();
+	}
+
+	int getKartDeger(int k = 0) {
+		return kartlar[k].getDeger();
+	}
+
 	//	İlk anda define'lara göre sıralı bir deste olduğu için desteyi karmak gerekecek
 	void karistir(int kackere=15180) {	//	Kardeşim Volkan SARP'ın dünyada yaşadığı gün sayısı default parametredir
 		for (int i = 0; i < kackere; i++) {	//	Yüksek bir değer gibi görünebilir, bilinçli olarak düşürmedim, parametreli
@@ -206,29 +210,37 @@ public:
 		}
 	}
 
+
+
+
 	Kart getir() {
 		return kartlar[top++];	//	return kartlar[top]; top++; yapılabilirdi, kısaltılmış postfix kullanıldı
 	}
+
+
+	
+	
+
 };
 
 
 int main() {
 	setlocale(LC_ALL, "Turkish");
-	srand(time(0));
+	srand(static_cast<unsigned int>(time(0)));
 	
-	Kart p2(maca, 99);	//	İlk atılan kartın döngü içerisinde kendisinden önce atılmış
-	// p2.yazdir();		//	bir kart ile karşılaştırılması için ön değerli Maça 99 kartı yaratıldı
-
-	Deste d;		//	Deste yaptık
-	d.karistir();	//	Karıştırdık
-
+	Kart p1(karo, 88);	//	İlk atılan kartın döngü içerisinde kendisinden önce atılmış
+	Kart p2(maca, 99);	//	bir kart ile karşılaştırılması için ön değerli p1 ve p2 kartları
+	
 	int p1Puan = 0;
-	int p2Puan = 0;
+	int p2Puan = 5;
 	int yerdekiKart = 0;
 	int kalanKart = 52;
-	
+	int sonAlan = 0;
+	int p1Deger = 79;
+	int p2Deger = 81;
+
 	// Atıflı Ascii Logo çalışması, backslashlarda \\ kullanıldı
-	cout << "  by Serkan SARP			                                   Logo: Manytools.org" << endl;
+	cout << "  by Serkan SARP			                            Logo: Manytools.org" << endl;
 	cout << " _______________________________________________________________________________________" << endl;
 	cout << "                                                   ___   ___ " << endl;
 	cout << "                                                  |\\__\\ |\\__\\" << endl;
@@ -243,61 +255,39 @@ int main() {
 	cout << " _______________________________________________________________________________________" << endl;
 
 
-	for (int i = 0; i < 2; i++) {
-		system("pause");
-		cout << "\033[14;1H\033[J";		//	Ekran temizliği için ansi kaçış kodu (linux+windows)
-
-		Kart p1 = d.getir();
-		p1.yazdir();
-		cout << "-- " << p1.getDeger() << endl;
-		
-		if (yerdekiKart == 0) {
-			cout << " - yerde kart yok" << endl;
-			yerdekiKart++;
-			kalanKart--;
-		} else {
-			if(p1.getDeger()==p2.getDeger()||p1.getDeger() == 11) {
-				cout << "--- p1 bacak ya da öncekiyle aynı kart, hepsini topla" << endl;
-				yerdekiKart = 0;
-				kalanKart--;
-			}
-		}
-
-		cout << " _______________________________________________________________________________________" << endl << endl;
-		cout << "  PC Puan: " << setprecision(2) << fixed << p1Puan << "\t\t|\t\tKalan Kart Sayısı  : " << kalanKart << endl;
-		cout << "  PC Puan: " << p2Puan << "\t\t|\t\tYerdeki Kart Sayısı: " << yerdekiKart << endl;
-		cout << " _______________________________________________________________________________________" << endl << endl;
-		
-		
-		system("pause");
-		cout << "\033[14;1H\033[J";		//	Ekran temizliği için ansi kaçış kodu (linux+windows)
-
-		Kart p2 = d.getir();
-		p2.yazdir();
-		cout << "-- " << p2.getDeger() << endl;
-		
-		if (yerdekiKart == 0) {
-			cout << " - yerde kart yok" << endl;
-			yerdekiKart++;
-			kalanKart--;
-		}
-		else {
-			if (p2.getDeger() == p1.getDeger() || p2.getDeger() == 11) {
-				cout << "--- p2 bacak ya da öncekiyle aynı kart, hepsini topla" << endl;
-				yerdekiKart = 0;
-				kalanKart--;
-			}
-		}
-		
-				
-		cout << " _______________________________________________________________________________________" << endl << endl;
-		cout << "  PC Puan: " << fixed << p1Puan << "\t\t|\t\tKalan Kart Sayısı  : " << kalanKart << endl;
-		cout << "  PC Puan: " << p2Puan << "\t\t|\t\tYerdeki Kart Sayısı: " << yerdekiKart << endl;
-		cout << " _______________________________________________________________________________________" << endl << endl;
-
-		
-		//
+	Deste d;		//	Deste yaptık
+	d.karistir();	//	Karıştırdık
+	
+	for (int i = 0; i < 52; i++) {
+		cout << i << ". ";
+		d.kartYazdir(i);
 	}
+	
+	
+
+
+	/*
+	PSUEDO CODE
+	- yerdeki kart 0 ise:
+		- kart at
+		- yerdekiKart++ / kalanKart--
+	- değilse
+		- kart at
+		- yerdekiKart++ / kalanKart--
+		- öncekinin değeriyle karşılaştır	*
+			- aynıysa
+				- yerdekileri topla ve yerdekiKart sıfırla (p(1/2)Puan+=yerdekiKart / yerdekiKart=0)
+				- volkan aldıysa sonAlan=1981 at
+				- p1 ise 1979 at
+
+
+				OYUN SONU
+		- sonAlan=0 ise PATA OLdunuz
+		- else if sonalan 1979, p1e ekle
+		- else if sonalan 1981, volkana ekle
+		- else ERROR
+	*/
+
 
 	/*
 	Kart p1 = d.getir();
@@ -307,9 +297,9 @@ int main() {
 	Kart p2 = d.getir();
 	p2.yazdir();
 	cout << p2.getDeger() << endl;
-
+	*/
 	
-	
+	/*
 	if (p2.getDeger() == p1.getDeger() || p2.getDeger() == 11) {
 		cout << "Aynı kart ya da Bacak geldi, topla" << endl;
 	}
