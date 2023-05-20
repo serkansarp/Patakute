@@ -3,6 +3,8 @@
 #include <clocale>	//	Türkçe
 #include <ctime>	//	srand için
 #include <string>
+#include <thread>
+#include <chrono>
 using namespace std;
 
 /*
@@ -13,6 +15,8 @@ Süreç:
 ** Kurallar geçirilecek
 - Test
 + Başlık
+- 2. oyuncu Volkan'ın olması, en son atılan aynı değerdeki kart ile hepsini toplama ihtimalinin güçlendirilmesi
+ki aynı zamanda çok keyif verici bir hareketti, o ihtimalin kardeşimde kalmasını istedim
 
 
 PATAKÜTE - v.1.1
@@ -42,6 +46,8 @@ Gönül Ver OOP Eğitim Seti 38-39. videosu pratiği olarak geliştiriliyor
 #define bacak (11)
 #define kiz (12)
 #define papaz (13)
+
+void kartSekillendirici(int, int, int, int);
 
 //	Kart Sınıfı
 class Kart {
@@ -203,15 +209,16 @@ public:
 		return kartlar[k].getDeger();
 	}
 
+	int getKartSeri(int k = 0) {
+		return kartlar[k].getSeri();
+	}
+
 	//	İlk anda define'lara göre sıralı bir deste olduğu için desteyi karmak gerekecek
 	void karistir(int kackere=15180) {	//	Kardeşim Volkan SARP'ın dünyada yaşadığı gün sayısı default parametredir
 		for (int i = 0; i < kackere; i++) {	//	Yüksek bir değer gibi görünebilir, bilinçli olarak düşürmedim, parametreli
 			swap(kartlar[rand() % 52],kartlar[rand() % 52]);	// gönderildiğinde o kadar karıştırılacaktır.
 		}
 	}
-
-
-
 
 	Kart getir() {
 		return kartlar[top++];	//	return kartlar[top]; top++; yapılabilirdi, kısaltılmış postfix kullanıldı
@@ -232,9 +239,8 @@ int main() {
 	Kart p2(maca, 99);	//	bir kart ile karşılaştırılması için ön değerli p1 ve p2 kartları
 	
 	int p1Puan = 0;
-	int p2Puan = 5;
+	int p2Puan = 0;
 	int yerdekiKart = 0;
-	int kalanKart = 52;
 	int sonAlan = 0;
 	int p1Deger = 79;
 	int p2Deger = 81;
@@ -258,10 +264,72 @@ int main() {
 	Deste d;		//	Deste yaptık
 	d.karistir();	//	Karıştırdık
 	
-	for (int i = 0; i < 52; i++) {
-		cout << i << ". ";
-		d.kartYazdir(i);
-	}
+	for (int i = 0; i < 52; i++) {		//	FOR DÖNGÜ BAŞI
+		
+		//cout << "\033[14;0H\033[J";
+		
+		
+		
+		if (yerdekiKart == 0) {			//	- IF Yerdeki Kart 0 başlangıcı
+			
+			if (i % 2 == 0) {			//	-- P1 Başlayacak
+				system("pause");
+				cout << "\033[14;0H\033[J";
+				cout << " - P1 ---------------" << endl;
+				cout << endl << "Kart atmak için bir tuşa basın" << endl;
+				d.kartYazdir(i);	// Kart at
+				yerdekiKart++;		// Yerdeki kart sayısı arttır
+				kartSekillendirici(4,5,6,7);
+				//cout << "\033[15;0H\033[J";
+			}
+			else {						//	-- Volkan başlayacak
+				cout << "\033[14;0H\033[J";
+				cout << " - Volkan -----------" << endl;
+				d.kartYazdir(i);	// Kart at
+				yerdekiKart++;		// Yerdeki kart sayısı arttır
+			}
+
+
+		} else {						//	- IF Yerdeki Kart 0 DEĞİLSE		(AŞIRI KURALLI BÖLGE)
+
+			if (i % 2 == 0) {			//	-- P1 Devam ediyor
+				cout << " - P1 ---------------" << endl;
+				cout << endl << "Kart atmak için bir tuşa basın" << endl; system("pause");
+				yerdekiKart++;		//	Yerdeki kart sayısı arttır
+
+				if (d.getKartDeger(i) == d.getKartDeger(i - 1)) {	// --- Eşit değerde kartı P1'in tutturması IF'i
+					p1Puan += yerdekiKart;	//	Yerdeki kartların P1'e geçmesi
+					yerdekiKart = 0;		//	Yerdeki kartların Sıfırlanması
+					sonAlan = 1979;			//	Son alanın P1 olarak belirlenmesi
+				}													// --- Eşit değerde kartı P1'in tutturması IF SONU
+
+			}							//	-- P1 Devam ediyor Sonu
+			else
+			{							//	-- Volkan devam ediyor	
+				cout << "\033[14;0H\033[J";
+				cout << " - Volkan -----------" << endl;
+				d.kartYazdir(i);	// Kart at
+				yerdekiKart++;		// Yerdeki kart sayısı arttır
+
+				if (d.getKartDeger(i) == d.getKartDeger(i - 1)) {	// --- Eşit değerde kartı Volkan'ın tutturması IF'i
+					p2Puan += yerdekiKart;	//	Yerdeki kartların Volkan'a geçmesi
+					yerdekiKart = 0;		//	Yerdeki kartların Sıfırlanması
+					sonAlan = 1981;			//	Son alanın Volkan olarak belirlenmesi
+				}													// --- Eşit değerde kartı Volkan'ın tutturması IF SONU
+			}							//	-- Volkan devam ediyor Sonu
+
+
+		
+		}								//	- IF Yerdeki Kart 0/DEĞİL sonu
+		
+
+
+		cout << "P1: " << p1Puan << "\tYerdeki Kart: " << yerdekiKart << endl;
+		cout << "VO: " << p2Puan << "\tKalan Kart  : " << 51-i << endl;
+
+		this_thread::sleep_for(chrono::seconds(3));
+		
+	}									//	FOR DÖNGÜ SONU
 	
 	
 
@@ -270,10 +338,10 @@ int main() {
 	PSUEDO CODE
 	- yerdeki kart 0 ise:
 		- kart at
-		- yerdekiKart++ / kalanKart--
+		- yerdekiKart++
 	- değilse
 		- kart at
-		- yerdekiKart++ / kalanKart--
+		- yerdekiKart++
 		- öncekinin değeriyle karşılaştır	*
 			- aynıysa
 				- yerdekileri topla ve yerdekiKart sıfırla (p(1/2)Puan+=yerdekiKart / yerdekiKart=0)
@@ -329,3 +397,11 @@ int main() {
 		
 	return 0;
 }	//	T21B/476 / 40.0007035,32.7898625
+
+void kartSekillendirici(int seri, int deger, int kacKartKaldi, int yerdekiKart) {
+	cout << "," << endl;
+	cout << "|" << endl;
+	cout << "|" << endl;
+	cout << "|" << endl;
+	cout << "'-----'" << endl;
+}
