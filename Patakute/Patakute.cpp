@@ -279,7 +279,8 @@ int main() {
 				cout << endl << "Kart atmak için bir tuşa basın" << endl;
 				d.kartYazdir(i);	// Kart at
 				yerdekiKart++;		// Yerdeki kart sayısı arttır
-				kartSekillendirici(4,5,6,7);
+				
+				kartSekillendirici(d.getKartSeri(), d.getKartDeger(),yerdekiKart,51-i);
 				//cout << "\033[15;0H\033[J";
 			}
 			else {						//	-- Volkan başlayacak
@@ -327,81 +328,44 @@ int main() {
 		cout << "P1: " << p1Puan << "\tYerdeki Kart: " << yerdekiKart << endl;
 		cout << "VO: " << p2Puan << "\tKalan Kart  : " << 51-i << endl;
 
-		this_thread::sleep_for(chrono::seconds(3));
+		
 		
 	}									//	FOR DÖNGÜ SONU
 	
-	
-
-
-	/*
-	PSUEDO CODE
-	- yerdeki kart 0 ise:
-		- kart at
-		- yerdekiKart++
-	- değilse
-		- kart at
-		- yerdekiKart++
-		- öncekinin değeriyle karşılaştır	*
-			- aynıysa
-				- yerdekileri topla ve yerdekiKart sıfırla (p(1/2)Puan+=yerdekiKart / yerdekiKart=0)
-				- volkan aldıysa sonAlan=1981 at
-				- p1 ise 1979 at
-
-
-				OYUN SONU
-		- sonAlan=0 ise PATA OLdunuz
-		- else if sonalan 1979, p1e ekle
-		- else if sonalan 1981, volkana ekle
-		- else ERROR
-	*/
-
-
-	/*
-	Kart p1 = d.getir();
-	p1.yazdir();
-	cout << p1.getDeger() << endl;
-
-	Kart p2 = d.getir();
-	p2.yazdir();
-	cout << p2.getDeger() << endl;
-	*/
-	
-	/*
-	if (p2.getDeger() == p1.getDeger() || p2.getDeger() == 11) {
-		cout << "Aynı kart ya da Bacak geldi, topla" << endl;
-	}
-	else {
-		cout << "Farklı değerlerde kartlar, oyuna devam" << endl;
-	}
-
-	if (kacinciKartAtilacak == 1)p1.ilkKartYazdir();
-	else if (kacinciKartAtilacak % 2 == 0)p2.ikincilSiraSayiKartYazdir();
-	else if (kacinciKartAtilacak % 2 == 1)p2.tekilSiraSayiKartYazdir();	// p2 değil tabi değişecek sürekli
-	// ayrıca tekSayiKartYazdir özelliği yok
-
-	kacinciKartAtilacak++; cout << kacinciKartAtilacak;
-
-	p2.ikincilSiraSayiKartYazdir();
-
-	kacinciKartAtilacak++; cout << kacinciKartAtilacak;
-
-	p1 = d.getir();
-	cout << p1.getDeger() << endl;
-	p1.tekilSiraSayiKartYazdir();
-	
-	kacinciKartAtilacak++; cout << kacinciKartAtilacak;
-	*/
-	
-
-		
+			
 	return 0;
 }	//	T21B/476 / 40.0007035,32.7898625
 
-void kartSekillendirici(int seri, int deger, int kacKartKaldi, int yerdekiKart) {
-	cout << "," << endl;
-	cout << "|" << endl;
-	cout << "|" << endl;
-	cout << "|" << endl;
-	cout << "'-----'" << endl;
+void kartSekillendirici(int _seri, int _deger, int _yerdekiKart, int _kacKartKaldi) {
+
+	cout << char(6 - _seri)<<endl;
+	cout << _seri << "|" << _deger << "|" << _yerdekiKart << "|" << _kacKartKaldi << endl;
+
+
+	cout << ",-----------," << endl;
+	cout << "| X         |" << endl;
+	cout << "|           |" << endl;
+	cout << "|           |" << endl;
+	cout << "|           |" << endl;
+	cout << "|     J     |" << endl;
+	cout << "|           |" << endl;
+	cout << "|           |" << endl;
+	cout << "|           |" << endl;
+	cout << "|         X |" << endl;
+	cout << "'-----------'" << endl;
+	system("pause");
 }
+
+/*
+#define maca (0)	char(6)
+#define sinek (1)	char(5)
+#define karo (2)	char(4)
+#define kupa (3)	char(3)
+
+//	Define As veya Özel Kartlar
+#define as (1)
+#define bacak (11)
+#define kiz (12)
+#define papaz (13)
+*/
+
