@@ -48,6 +48,7 @@ Gönül Ver OOP Eğitim Seti 38-39. videosu pratiği olarak geliştiriliyor
 #define papaz (13)
 
 void kartSekillendirici(int, int, int, int);
+void oyuncuAdiYazdirAnsiKacis();
 
 //	Kart Sınıfı
 class Kart {
@@ -266,37 +267,39 @@ int main() {
 	
 	for (int i = 0; i < 52; i++) {		//	FOR DÖNGÜ BAŞI
 		
-		//cout << "\033[14;0H\033[J";
+		cout << "\033[14;0H\033[J";
 		
 		
 		
 		if (yerdekiKart == 0) {			//	- IF Yerdeki Kart 0 başlangıcı
 			
 			if (i % 2 == 0) {			//	-- P1 Başlayacak
-				system("pause");
-				cout << "\033[14;0H\033[J";
-				cout << " - P1 ---------------" << endl;
+				
+				oyuncuAdiYazdirAnsiKacis(); // Önce 15 satır ve altını sildirip, Oyuncu/Volkan adını 15.Satır 33 sütundan yazdırma
+				cout << "------ OYUNCU ------" << endl;
 				cout << endl << "Kart atmak için bir tuşa basın" << endl;
 				d.kartYazdir(i);	// Kart at
 				yerdekiKart++;		// Yerdeki kart sayısı arttır
-				
-				kartSekillendirici(d.getKartSeri(), d.getKartDeger(),yerdekiKart,51-i);
+				kartSekillendirici(d.getKartSeri(i), d.getKartDeger(i),yerdekiKart,51-i);
 				//cout << "\033[15;0H\033[J";
 			}
 			else {						//	-- Volkan başlayacak
-				cout << "\033[14;0H\033[J";
-				cout << " - Volkan -----------" << endl;
+				oyuncuAdiYazdirAnsiKacis();
+				cout << "------ VOLKAN ------" << endl;
 				d.kartYazdir(i);	// Kart at
 				yerdekiKart++;		// Yerdeki kart sayısı arttır
+				kartSekillendirici(d.getKartSeri(i), d.getKartDeger(i), yerdekiKart, 51 - i);
 			}
 
 
 		} else {						//	- IF Yerdeki Kart 0 DEĞİLSE		(AŞIRI KURALLI BÖLGE)
 
 			if (i % 2 == 0) {			//	-- P1 Devam ediyor
-				cout << " - P1 ---------------" << endl;
+				oyuncuAdiYazdirAnsiKacis();
+				cout << "------ OYUNCU ------" << endl;
 				cout << endl << "Kart atmak için bir tuşa basın" << endl; system("pause");
 				yerdekiKart++;		//	Yerdeki kart sayısı arttır
+				kartSekillendirici(d.getKartSeri(i), d.getKartDeger(i), yerdekiKart, 51 - i);
 
 				if (d.getKartDeger(i) == d.getKartDeger(i - 1)) {	// --- Eşit değerde kartı P1'in tutturması IF'i
 					p1Puan += yerdekiKart;	//	Yerdeki kartların P1'e geçmesi
@@ -307,10 +310,11 @@ int main() {
 			}							//	-- P1 Devam ediyor Sonu
 			else
 			{							//	-- Volkan devam ediyor	
-				cout << "\033[14;0H\033[J";
-				cout << " - Volkan -----------" << endl;
+				oyuncuAdiYazdirAnsiKacis();
+				cout << "------ VOLKAN ------" << endl;
 				d.kartYazdir(i);	// Kart at
 				yerdekiKart++;		// Yerdeki kart sayısı arttır
+				kartSekillendirici(d.getKartSeri(i), d.getKartDeger(i), yerdekiKart, 51 - i);
 
 				if (d.getKartDeger(i) == d.getKartDeger(i - 1)) {	// --- Eşit değerde kartı Volkan'ın tutturması IF'i
 					p2Puan += yerdekiKart;	//	Yerdeki kartların Volkan'a geçmesi
@@ -325,8 +329,8 @@ int main() {
 		
 
 
-		cout << "P1: " << p1Puan << "\tYerdeki Kart: " << yerdekiKart << endl;
-		cout << "VO: " << p2Puan << "\tKalan Kart  : " << 51-i << endl;
+		//cout << "P1: " << p1Puan << "\tYerdeki Kart: " << yerdekiKart << endl;
+		//cout << "VO: " << p2Puan << "\tKalan Kart  : " << 51-i << endl;
 
 		
 		
@@ -336,6 +340,8 @@ int main() {
 	return 0;
 }	//	T21B/476 / 40.0007035,32.7898625
 
+void oyuncuAdiYazdirAnsiKacis() {	cout << "\033[15;1H\033[J" << endl; cout << "\033[15;33H";		}
+
 void kartSekillendirici(int _seri, int _deger, int _yerdekiKart, int _kacKartKaldi) {
 
 	cout << char(6 - _seri)<<endl;
@@ -343,7 +349,7 @@ void kartSekillendirici(int _seri, int _deger, int _yerdekiKart, int _kacKartKal
 
 
 	cout << ",-----------," << endl;
-	cout << "| X         |" << endl;
+	cout << "| " << char(6 - _seri) << "         |" << endl;
 	cout << "|           |" << endl;
 	cout << "|           |" << endl;
 	cout << "|           |" << endl;
@@ -351,7 +357,7 @@ void kartSekillendirici(int _seri, int _deger, int _yerdekiKart, int _kacKartKal
 	cout << "|           |" << endl;
 	cout << "|           |" << endl;
 	cout << "|           |" << endl;
-	cout << "|         X |" << endl;
+	cout << "|         " << char(6 - _seri) << " |" << endl;
 	cout << "'-----------'" << endl;
 	system("pause");
 }
