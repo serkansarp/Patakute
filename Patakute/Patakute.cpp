@@ -275,8 +275,9 @@ int main() {
 			
 			if (i % 2 == 0) {			//	-- P1 Başlayacak
 				
-				oyuncuAdiYazdirAnsiKacis(); // Önce 15 satır ve altını sildirip, Oyuncu/Volkan adını 15.Satır 33 sütundan yazdırma
-				cout << "------ OYUNCU ------" << endl;
+				//oyuncuAdiYazdirAnsiKacis(); // Önce 15 satır ve altını sildirip, Oyuncu/Volkan adını 15.Satır 33 sütundan yazdırma
+				cout << "\033[15;33H";
+				cout << "====== OYUNCU ======" << endl;
 				cout << endl << "Kart atmak için bir tuşa basın" << endl;
 				d.kartYazdir(i);	// Kart at
 				yerdekiKart++;		// Yerdeki kart sayısı arttır
@@ -284,8 +285,8 @@ int main() {
 				//cout << "\033[15;0H\033[J";
 			}
 			else {						//	-- Volkan başlayacak
-				oyuncuAdiYazdirAnsiKacis();
-				cout << "------ VOLKAN ------" << endl;
+				cout << "\033[15;33H";
+				cout << "====== VOLKAN ======" << endl;
 				d.kartYazdir(i);	// Kart at
 				yerdekiKart++;		// Yerdeki kart sayısı arttır
 				kartSekillendirici(d.getKartSeri(i), d.getKartDeger(i), yerdekiKart, 51 - i);
@@ -295,8 +296,8 @@ int main() {
 		} else {						//	- IF Yerdeki Kart 0 DEĞİLSE		(AŞIRI KURALLI BÖLGE)
 
 			if (i % 2 == 0) {			//	-- P1 Devam ediyor
-				oyuncuAdiYazdirAnsiKacis();
-				cout << "------ OYUNCU ------" << endl;
+				cout << "\033[15;33H";
+				cout << "====== OYUNCU ======" << endl;
 				cout << endl << "Kart atmak için bir tuşa basın" << endl; system("pause");
 				yerdekiKart++;		//	Yerdeki kart sayısı arttır
 				kartSekillendirici(d.getKartSeri(i), d.getKartDeger(i), yerdekiKart, 51 - i);
@@ -310,8 +311,9 @@ int main() {
 			}							//	-- P1 Devam ediyor Sonu
 			else
 			{							//	-- Volkan devam ediyor	
-				oyuncuAdiYazdirAnsiKacis();
-				cout << "------ VOLKAN ------" << endl;
+				//oyuncuAdiYazdirAnsiKacis();
+				cout << "\033[15;33H";
+				cout << "====== VOLKAN ======" << endl;
 				d.kartYazdir(i);	// Kart at
 				yerdekiKart++;		// Yerdeki kart sayısı arttır
 				kartSekillendirici(d.getKartSeri(i), d.getKartDeger(i), yerdekiKart, 51 - i);
@@ -340,13 +342,15 @@ int main() {
 	return 0;
 }	//	T21B/476 / 40.0007035,32.7898625
 
-void oyuncuAdiYazdirAnsiKacis() {	cout << "\033[15;1H\033[J" << endl; cout << "\033[15;33H";		}
-
 void kartSekillendirici(int _seri, int _deger, int _yerdekiKart, int _kacKartKaldi) {
+
+
 
 	cout << char(6 - _seri)<<endl;
 	cout << _seri << "|" << _deger << "|" << _yerdekiKart << "|" << _kacKartKaldi << endl;
 
+	cout << endl;
+	cout << "\033[17;33H";
 
 	cout << ",-----------," << endl;
 	cout << "| " << char(6 - _seri) << "         |" << endl;
