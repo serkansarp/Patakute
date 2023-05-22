@@ -5,6 +5,26 @@
 #include <string>
 #include <thread>
 #include <chrono>
+#ifdef _WIN32
+	#include <conio.h>  // getch()
+#else
+	#include <termios.h>
+	#include <unistd.h>
+
+	// UNIX/Linux için getch()
+	int getch() {
+		struct termios oldtc, newtc;
+		int ch;
+		tcgetattr(STDIN_FILENO, &oldtc);
+		newtc = oldtc;
+		newtc.c_lflag &= ~(ICANON | ECHO);
+		tcsetattr(STDIN_FILENO, TCSANOW, &newtc);
+		ch = getchar();
+		tcsetattr(STDIN_FILENO, TCSANOW, &oldtc);
+	return ch;
+}
+#endif
+
 using namespace std;
 
 /*
@@ -74,110 +94,6 @@ public:
 		case papaz: { cout << "Papaz"; break; }
 		default: {cout << deger; }
 		}	cout << endl;
-	}
-
-	// İlk kart solda, yanında önceki kartın izi olmadan yazdırılır
-	void ilkKartYazdir()const {
-		int seriCharSayi = 0;	// char() içine koyulacak sayı #define'dan bakılarak belirlendi, ascii olarak gösterilebilir
-		if (this->seri == 0) { seriCharSayi = 6; }
-		if (this->seri == 1) { seriCharSayi = 5; }
-		if (this->seri == 2) { seriCharSayi = 4; }
-		if (this->seri == 3) { seriCharSayi = seri; }
-
-		cout << " ,---," << endl;
-		cout << " |" << char(seriCharSayi) << "  |" << endl;
-		cout << " |";
-		
-		// 1'lerde A yazdırmak için ara ayar
-		if (this->deger == 1) { cout << " A "; }
-		
-		// 10'lu kartta sağa veya sola yaslı olmasının çirkin görüntüsü +
-		// resimli kartların J-Q-K charlarıyla görüntülenmesi için çözüm
-		if (deger > 9) { 
-			if (deger == 10)cout << "1 0";
-			else if (deger > 10) {
-				cout << " ";
-				if (this->deger == 11) { cout << "J"; }
-				if (this->deger == 12) { cout << "Q"; }
-				if (this->deger == 13) { cout << "K"; }
-				cout << " ";
-			}
-		}else {	if (this->deger!=1)cout << " " << deger << " ";
-		}
-		cout << "|" << endl;
-		cout << " |  " << char(seriCharSayi) << "|" << endl;
-		cout << " '---'" << endl;
-	}
-
-
-	// 2. ve çift sayılı sırada atılan kartlar, ilkinin üzerinde olması için solunda, altındaki kartın solunun
-	// izi görünür
-	void ikincilSiraSayiKartYazdir()const {
-		int seriCharSayi = 0;	// char() içine koyulacak sayı #define'dan bakılarak belirlendi, ascii olarak gösterilebilir
-		if (this->seri == 0) { seriCharSayi = 6; }
-		if (this->seri == 1) { seriCharSayi = 5; }
-		if (this->seri == 2) { seriCharSayi = 4; }
-		if (this->seri == 3) { seriCharSayi = seri; }
-
-		cout << " ,,---," << endl;
-		cout << " ||" << char(seriCharSayi) << "  |" << endl;
-		cout << " ||";
-
-		// 1'lerde A yazdırmak için ara ayar
-		if (this->deger == 1) { cout << " A "; }
-
-		// 10'lu kartta sağa veya sola yaslı olmasının çirkin görüntüsü +
-		// resimli kartların J-Q-K charlarıyla görüntülenmesi için çözüm
-		if (deger > 9) {
-			if (deger == 10)cout << "1 0";
-			else if (deger > 10) {
-				cout << " ";
-				if (this->deger == 11) { cout << "J"; }
-				if (this->deger == 12) { cout << "Q"; }
-				if (this->deger == 13) { cout << "K"; }
-				cout << " ";
-			}
-		}
-		else {
-			if (this->deger != 1)cout << " " << deger << " ";
-		}
-		cout << "|" << endl;
-		cout << " ||  " << char(seriCharSayi) << "|" << endl;
-		cout << " ''---'" << endl;
-	}
-
-	void tekilSiraSayiKartYazdir()const {
-		int seriCharSayi = 0;	// char() içine koyulacak sayı #define'dan bakılarak belirlendi, ascii olarak gösterilebilir
-		if (this->seri == 0) { seriCharSayi = 6; }
-		if (this->seri == 1) { seriCharSayi = 5; }
-		if (this->seri == 2) { seriCharSayi = 4; }
-		if (this->seri == 3) { seriCharSayi = seri; }
-
-		cout << " ,---,," << endl;
-		cout << " |" << char(seriCharSayi) << "  ||" << endl;
-		cout << " |";
-
-		// 1'lerde A yazdırmak için ara ayar
-		if (this->deger == 1) { cout << " A "; }
-
-		// 10'lu kartta sağa veya sola yaslı olmasının çirkin görüntüsü +
-		// resimli kartların J-Q-K charlarıyla görüntülenmesi için çözüm
-		if (deger > 9) {
-			if (deger == 10)cout << "1 0";
-			else if (deger > 10) {
-				cout << " ";
-				if (this->deger == 11) { cout << "J"; }
-				if (this->deger == 12) { cout << "Q"; }
-				if (this->deger == 13) { cout << "K"; }
-				cout << " ";
-			}
-		}
-		else {
-			if (this->deger != 1)cout << " " << deger << " ";
-		}
-		cout << "||" << endl;
-		cout << " |  " << char(seriCharSayi) << "||" << endl;
-		cout << " '---''" << endl;
 	}
 
 };
@@ -267,7 +183,7 @@ int main() {
 	
 	for (int i = 0; i < 52; i++) {		//	FOR DÖNGÜ BAŞI
 		
-		cout << "\033[14;0H\033[J";
+		//cout << "\033[14;0H\033[J";
 		
 		
 		
@@ -278,15 +194,16 @@ int main() {
 				//oyuncuAdiYazdirAnsiKacis(); // Önce 15 satır ve altını sildirip, Oyuncu/Volkan adını 15.Satır 33 sütundan yazdırma
 				cout << "\033[15;33H";
 				cout << "====== OYUNCU ======" << endl;
-				cout << endl << "Kart atmak için bir tuşa basın" << endl;
+				_getch();
 				d.kartYazdir(i);	// Kart at
 				yerdekiKart++;		// Yerdeki kart sayısı arttır
 				kartSekillendirici(d.getKartSeri(i), d.getKartDeger(i),yerdekiKart,51-i);
-				//cout << "\033[15;0H\033[J";
+				
 			}
 			else {						//	-- Volkan başlayacak
 				cout << "\033[15;33H";
 				cout << "====== VOLKAN ======" << endl;
+				_getch();
 				d.kartYazdir(i);	// Kart at
 				yerdekiKart++;		// Yerdeki kart sayısı arttır
 				kartSekillendirici(d.getKartSeri(i), d.getKartDeger(i), yerdekiKart, 51 - i);
@@ -298,7 +215,7 @@ int main() {
 			if (i % 2 == 0) {			//	-- P1 Devam ediyor
 				cout << "\033[15;33H";
 				cout << "====== OYUNCU ======" << endl;
-				cout << endl << "Kart atmak için bir tuşa basın" << endl; system("pause");
+				_getch();
 				yerdekiKart++;		//	Yerdeki kart sayısı arttır
 				kartSekillendirici(d.getKartSeri(i), d.getKartDeger(i), yerdekiKart, 51 - i);
 
@@ -314,6 +231,7 @@ int main() {
 				//oyuncuAdiYazdirAnsiKacis();
 				cout << "\033[15;33H";
 				cout << "====== VOLKAN ======" << endl;
+				_getch();
 				d.kartYazdir(i);	// Kart at
 				yerdekiKart++;		// Yerdeki kart sayısı arttır
 				kartSekillendirici(d.getKartSeri(i), d.getKartDeger(i), yerdekiKart, 51 - i);
@@ -342,6 +260,10 @@ int main() {
 	return 0;
 }	//	T21B/476 / 40.0007035,32.7898625
 
+
+
+
+
 void kartSekillendirici(int _seri, int _deger, int _yerdekiKart, int _kacKartKaldi) {
 
 
@@ -350,20 +272,24 @@ void kartSekillendirici(int _seri, int _deger, int _yerdekiKart, int _kacKartKal
 	cout << _seri << "|" << _deger << "|" << _yerdekiKart << "|" << _kacKartKaldi << endl;
 
 	cout << endl;
-	cout << "\033[17;33H";
+	
+	int y = rand() % 6 + 18;				//	20	-	+-3 kayabilir max		-	17-23 arası
+	int x = rand() % 9 + 31;				//	35	-	+-4 yana kayabilir max	-	31-39 arası
 
-	cout << ",-----------," << endl;
-	cout << "| " << char(6 - _seri) << "         |" << endl;
-	cout << "|           |" << endl;
-	cout << "|           |" << endl;
-	cout << "|           |" << endl;
-	cout << "|     J     |" << endl;
-	cout << "|           |" << endl;
-	cout << "|           |" << endl;
-	cout << "|           |" << endl;
-	cout << "|         " << char(6 - _seri) << " |" << endl;
-	cout << "'-----------'" << endl;
-	system("pause");
+	cout << "\033["; cout << y <<";"; cout << x <<"H";
+
+	cout << ",-----------," << endl;	cout << "\033["; cout << ++y << ";"; cout << x << "H";
+	cout << "| 10        |" << endl;	cout << "\033["; cout << ++y << ";"; cout << x << "H";
+	cout << "|           |" << endl;	cout << "\033["; cout << ++y << ";"; cout << x << "H";
+	cout << "|           |" << endl;	cout << "\033["; cout << ++y << ";"; cout << x << "H";
+	cout << "|           |" << endl;	cout << "\033["; cout << ++y << ";"; cout << x << "H";
+	cout << "|     X     |" << endl;	cout << "\033["; cout << ++y << ";"; cout << x << "H";
+	cout << "|           |" << endl;	cout << "\033["; cout << ++y << ";"; cout << x << "H";
+	cout << "|           |" << endl;	cout << "\033["; cout << ++y << ";"; cout << x << "H";
+	cout << "|           |" << endl;	cout << "\033["; cout << ++y << ";"; cout << x << "H";
+	cout << "|        10 | " << endl;	cout << "\033["; cout << ++y << ";"; cout << x << "H";
+	cout << "'-----------'" << endl;	cout << "\033["; cout << ++y << ";"; cout << x << "H";
+	_getch();
 }
 
 /*
