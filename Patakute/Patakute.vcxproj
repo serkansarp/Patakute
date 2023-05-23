@@ -127,7 +127,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="KartDeste.cpp" />
     <ClCompile Include="Patakute.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="KartDeste.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

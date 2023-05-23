@@ -18,5 +18,13 @@
     <ClCompile Include="Patakute.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="KartDeste.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="KartDeste.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

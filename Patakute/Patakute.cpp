@@ -5,6 +5,7 @@
 #include <string>
 #include <thread>
 #include <chrono>
+#include "KartDeste.h"
 #ifdef _WIN32
 	#include <conio.h>  // getch()
 #else
@@ -55,97 +56,9 @@ Gönül Ver OOP Eğitim Seti 38-39. videosu pratiği olarak geliştiriliyor
 */
 
 
-//	Define Seri 
-#define maca (0)
-#define sinek (1)
-#define karo (2)
-#define kupa (3)
 
-//	Define As veya Özel Kartlar
-#define as (1)
-#define bacak (11)
-#define kiz (12)
-#define papaz (13)
 
 void kartSekillendirici(int, int, int, int);
-void oyuncuAdiYazdirAnsiKacis();
-
-//	Kart Sınıfı
-class Kart {
-private:
-	int seri;
-	int deger;
-public:
-	Kart(int seri=maca,int deger=2):seri(seri),deger(deger){}	// Parametresiz gelen istekler Maça 2 dönecek
-	int getSeri() {		return seri;	}	//	Encalsulation gereği getterlar
-	int getDeger() {	return deger;	}
-	
-	void yazdir()const {	//	Seri ve değerlerin düzgün yazdırılabilmesi için Switch-Case kullanıldı
-		switch (seri) {
-		case maca: { cout << "Maça"; break; }
-		case sinek: { cout << "Sinek"; break; }
-		case karo: { cout << "Karo"; break; }
-		case kupa: { cout << "Kupa"; break; }
-		}	cout << " ";
-		switch (deger) {
-		case as: { cout << "As"; break; }
-		case bacak: { cout << "Bacak"; break; }
-		case kiz: { cout << "Kız"; break; }
-		case papaz: { cout << "Papaz"; break; }
-		default: {cout << deger; }
-		}	cout << endl;
-	}
-
-};
-
-//	Deste Sınıfı
-class Deste {
-private:
-	int top;
-	Kart kartlar[52];	//	Kart sınıfından 52 Kart'lık boş deste
-public:
-	
-	Deste() {			//	Deste kurucusu ile burada döngüyle boş kartların üzerine isimleri yazıldı
-		top = 0;
-		for (int i = 0; i < 52; i++) {
-			kartlar[i] = Kart(i / 13, i % 13 + 1);
-		}
-	}
-
-	void desteYazdir()const {	//	İstenildiğinde döngü ile deste yazdırılabiliyor (Kart::yazdır kullanılıyor)
-		for (int i = 0; i < 52; i++) {
-			kartlar[i].yazdir();
-		}
-	}
-
-	void kartYazdir(int k=0) {
-		kartlar[k].yazdir();
-	}
-
-	int getKartDeger(int k = 0) {
-		return kartlar[k].getDeger();
-	}
-
-	int getKartSeri(int k = 0) {
-		return kartlar[k].getSeri();
-	}
-
-	//	İlk anda define'lara göre sıralı bir deste olduğu için desteyi karmak gerekecek
-	void karistir(int kackere=15180) {	//	Kardeşim Volkan SARP'ın dünyada yaşadığı gün sayısı default parametredir
-		for (int i = 0; i < kackere; i++) {	//	Yüksek bir değer gibi görünebilir, bilinçli olarak düşürmedim, parametreli
-			swap(kartlar[rand() % 52],kartlar[rand() % 52]);	// gönderildiğinde o kadar karıştırılacaktır.
-		}
-	}
-
-	Kart getir() {
-		return kartlar[top++];	//	return kartlar[top]; top++; yapılabilirdi, kısaltılmış postfix kullanıldı
-	}
-
-
-	
-	
-
-};
 
 
 int main() {
@@ -161,7 +74,7 @@ int main() {
 	int sonAlan = 0;
 	int p1Deger = 79;
 	int p2Deger = 81;
-
+	char _getchTutucu = '0';
 	// Atıflı Ascii Logo çalışması, backslashlarda \\ kullanıldı
 	cout << "  by Serkan SARP			                            Logo: Manytools.org" << endl;
 	cout << " _______________________________________________________________________________________" << endl;
@@ -179,7 +92,11 @@ int main() {
 
 
 	Deste d;		//	Deste yaptık
-	d.karistir();	//	Karıştırdık
+	d.karistir();	//	Parametresiz gönderip 15180 kartı birbiriyle random yer değiştirdik, anlamı metod yorumundadır
+	//	d.desteYazdir(); system("pause");	//	Gerektiğinde kullanmak için
+	
+	
+	
 	
 	for (int i = 0; i < 52; i++) {		//	FOR DÖNGÜ BAŞI
 		
@@ -194,7 +111,7 @@ int main() {
 				//oyuncuAdiYazdirAnsiKacis(); // Önce 15 satır ve altını sildirip, Oyuncu/Volkan adını 15.Satır 33 sütundan yazdırma
 				cout << "\033[15;33H";
 				cout << "====== OYUNCU ======" << endl;
-				_getch();
+				_getchTutucu = _getch();
 				d.kartYazdir(i);	// Kart at
 				yerdekiKart++;		// Yerdeki kart sayısı arttır
 				kartSekillendirici(d.getKartSeri(i), d.getKartDeger(i),yerdekiKart,51-i);
@@ -203,7 +120,7 @@ int main() {
 			else {						//	-- Volkan başlayacak
 				cout << "\033[15;33H";
 				cout << "====== VOLKAN ======" << endl;
-				_getch();
+				_getchTutucu = _getch();
 				d.kartYazdir(i);	// Kart at
 				yerdekiKart++;		// Yerdeki kart sayısı arttır
 				kartSekillendirici(d.getKartSeri(i), d.getKartDeger(i), yerdekiKart, 51 - i);
@@ -215,7 +132,7 @@ int main() {
 			if (i % 2 == 0) {			//	-- P1 Devam ediyor
 				cout << "\033[15;33H";
 				cout << "====== OYUNCU ======" << endl;
-				_getch();
+				_getchTutucu = _getch();
 				yerdekiKart++;		//	Yerdeki kart sayısı arttır
 				kartSekillendirici(d.getKartSeri(i), d.getKartDeger(i), yerdekiKart, 51 - i);
 
@@ -231,7 +148,7 @@ int main() {
 				//oyuncuAdiYazdirAnsiKacis();
 				cout << "\033[15;33H";
 				cout << "====== VOLKAN ======" << endl;
-				_getch();
+				_getchTutucu = _getch();
 				d.kartYazdir(i);	// Kart at
 				yerdekiKart++;		// Yerdeki kart sayısı arttır
 				kartSekillendirici(d.getKartSeri(i), d.getKartDeger(i), yerdekiKart, 51 - i);
@@ -273,8 +190,9 @@ void kartSekillendirici(int _seri, int _deger, int _yerdekiKart, int _kacKartKal
 
 	cout << endl;
 	
-	int y = rand() % 6 + 18;				//	20	-	+-3 kayabilir max		-	17-23 arası
-	int x = rand() % 9 + 31;				//	35	-	+-4 yana kayabilir max	-	31-39 arası
+	char _fGetchTutucu = '0';
+	int y = rand() % 7 + 17;				//	20	-	+-3 kayabilir max		-	17-23 arası
+	int x = rand() % 9 + 32;				//	35	-	+-4 yana kayabilir max	-	32-40 arası
 
 	cout << "\033["; cout << y <<";"; cout << x <<"H";
 
@@ -289,7 +207,7 @@ void kartSekillendirici(int _seri, int _deger, int _yerdekiKart, int _kacKartKal
 	cout << "|           |" << endl;	cout << "\033["; cout << ++y << ";"; cout << x << "H";
 	cout << "|        10 | " << endl;	cout << "\033["; cout << ++y << ";"; cout << x << "H";
 	cout << "'-----------'" << endl;	cout << "\033["; cout << ++y << ";"; cout << x << "H";
-	_getch();
+	_fGetchTutucu = _getch();
 }
 
 /*
