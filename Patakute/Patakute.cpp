@@ -193,19 +193,39 @@ void kartSekillendirici(int _seri, int _deger, int _yerdekiKart, int _kacKartKal
 	char _fGetchTutucu = '0';
 	int y = rand() % 7 + 17;				//	20	-	+-3 kayabilir max		-	17-23 arası
 	int x = rand() % 9 + 32;				//	35	-	+-4 yana kayabilir max	-	32-40 arası
+	
+	string kartUstuDeger = "E ";
+	if (_deger < 2 || _deger > 9) {
+		if (_deger == 1) { kartUstuDeger = "A "; }
+		else if (_deger == 10) { kartUstuDeger = "10"; }
+		else if (_deger == 11) { kartUstuDeger = "J "; }
+		else if (_deger == 12) { kartUstuDeger = "Q "; }
+		else if (_deger == 13) { kartUstuDeger = "K "; }
+		else { kartUstuDeger = "EE"; }
+		} else { kartUstuDeger = to_string(_deger) + " ";
+	}
+	
+	
+
 
 	cout << "\033["; cout << y <<";"; cout << x <<"H";
 
-	cout << ",-----------," << endl;	cout << "\033["; cout << ++y << ";"; cout << x << "H";
-	cout << "| 10        |" << endl;	cout << "\033["; cout << ++y << ";"; cout << x << "H";
-	cout << "|           |" << endl;	cout << "\033["; cout << ++y << ";"; cout << x << "H";
-	cout << "|           |" << endl;	cout << "\033["; cout << ++y << ";"; cout << x << "H";
-	cout << "|           |" << endl;	cout << "\033["; cout << ++y << ";"; cout << x << "H";
-	cout << "|     X     |" << endl;	cout << "\033["; cout << ++y << ";"; cout << x << "H";
-	cout << "|           |" << endl;	cout << "\033["; cout << ++y << ";"; cout << x << "H";
-	cout << "|           |" << endl;	cout << "\033["; cout << ++y << ";"; cout << x << "H";
-	cout << "|           |" << endl;	cout << "\033["; cout << ++y << ";"; cout << x << "H";
-	cout << "|        10 | " << endl;	cout << "\033["; cout << ++y << ";"; cout << x << "H";
+	cout << ",-----------," << "\033[" << ++y << ";" << x << "H";
+	cout << "| " << kartUstuDeger<<"        |"<< endl << "\033[" << ++y << ";" << x << "H";
+	cout << "|           |" << "\033[" << ++y << ";" << x << "H";
+	cout << "|           |" << "\033[" << ++y << ";" << x << "H";
+	cout << "|           |" << "\033[" << ++y << ";" << x << "H";
+	cout << "|     ";
+	
+	// Tam kartın ortasına Seri işareti koyuluyor, define ile belirlenen işaret char(x)
+	// ile 6'dan çıkarılarak yazdırılabiliyor (Oyunda dikkat çeken bir nokta değil)
+	cout << char(6 - _seri);
+	cout <<	"     |" << "\033[" << ++y << ";" << x << "H";
+	cout << "|           |" << "\033[" << ++y << ";" << x << "H";
+	cout << "|           |" << "\033[" << ++y << ";" << x << "H";
+	cout << "|           |" << "\033[" << ++y << ";" << x << "H";
+	cout << "|        " << kartUstuDeger<< " |" << "\033[" << ++y << ";" << x << "H";
+	cout << "\033["; cout << ++y << "; "; cout << x << "H";
 	cout << "'-----------'" << endl;	cout << "\033["; cout << ++y << ";"; cout << x << "H";
 	_fGetchTutucu = _getch();
 }
