@@ -18,7 +18,7 @@ void Kart::yazdir()const {	//	Seri ve deðerlerin düzgün yazdýrýlabilmesi için Sw
 	case kiz: { cout << "Kýz"; break; }
 	case papaz: { cout << "Papaz"; break; }
 	default: {cout << deger; }
-	}	cout << endl;
+	}	//cout << endl;
 }
 
 // Deste Constructor Taným

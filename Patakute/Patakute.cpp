@@ -33,10 +33,10 @@ Süreç:
 + 2 kullanıcı p1-p2 yazıldı
 + Çekilen kartların yazılması ve değerinin gösterilmesi arasındaki sıkıntı giderildi
 + Belki basit bir kart görüntüsü / ascii veya utf karakter yazımıyla 
-** Kurallar geçirilecek
+- Kurallar geçirilecek
 - Test
 + Başlık
-- 2. oyuncu Volkan'ın olması, en son atılan aynı değerdeki kart ile hepsini toplama ihtimalinin güçlendirilmesi
++ 2. oyuncu Volkan'ın olması, en son atılan aynı değerdeki kart ile hepsini toplama ihtimalinin güçlendirilmesi
 ki aynı zamanda çok keyif verici bir hareketti, o ihtimalin kardeşimde kalmasını istedim
 
 
@@ -75,12 +75,13 @@ int main() {
 	int p1Deger = 79;
 	int p2Deger = 81;
 	char _getchTutucu = '0';
+	
 	// Atıflı Ascii Logo çalışması, backslashlarda \\ kullanıldı
 	cout << "  by Serkan SARP			                            Logo: Manytools.org" << endl;
 	cout << " _______________________________________________________________________________________" << endl;
 	cout << "                                                   ___   ___ " << endl;
-	cout << "                                                  |\\__\\ |\\__\\" << endl;
-	cout << "                                                  \\|__| \\|__|" << endl;
+	cout << " \033[90m" << "11.2017 Babamın ve"<<"\033[0m" <<"                               |\\__\\ |\\__\\"<< "\033[90m"<<"      T21B / 476, Karşıyaka" << "\033[0m" <<endl;
+	cout << "\033[90m" << " 02.2023 Kardeşimin güzel anılarına ithafen..." << "\033[0m" << "    \\|__| \\|__| " << "\033[90m" << "    40.0002459, 32.7889089      "<< "\033[0m" << endl;
 	cout << "  ________  ________  _________  ________  ___  __    ___  ___  _________  _______" << endl;
 	cout << " |\\   __  \\|\\   __  \\|\\___   ___|\\   __  \\|\\  \\|\\  \\ |\\  \\|\\  \\|\\___   __\\|\\  ___ \\" << endl;
 	cout << " \\ \\  \\|\\  \\ \\  \\|\\  \\|___ \\  \\_\\ \\  \\|\\  \\ \\  \\/  /|\\ \\  \\\\\\  \\|___ \\  \\/\\ \\   __/|" << endl;
@@ -89,6 +90,31 @@ int main() {
 	cout << "    \\ \\__\\    \\ \\__\\ \\__\\   \\ \\__\\ \\ \\__\\ \\__\\ \\__\\\\ \\__\\ \\_______\\   \\ \\__\\ \\ \\_______\\" << endl;
 	cout << "     \\|__|     \\|__|\\|__|    \\|__|  \\|__|\\|__|\\|__| \\|__|\\|_______|    \\|__|  \\|_______|" << endl;
 	cout << " _______________________________________________________________________________________" << endl;
+
+	//for (int i = 0; i < 50; i++)cout << i << " " << char(i);
+	
+
+
+
+	// SOL TABLO BOŞ veya 0 DEĞERLİ
+	cout << "\033[19;1H" << "   - PUANLAR -"<<endl;
+	cout << " ===============" << endl;
+	cout << "  " << char(15) << "  OYUNCU:  0" << endl;
+	cout << "  " << char(15) << "  VOLKAN:  0" << endl;
+	cout << " ---------------" << endl;
+	cout << "  Son Toplayan" << endl << "        -" << endl << " ===============" << endl;
+
+
+	// SAĞ TABLO
+	cout << "\033[19;75H" << " Kalan Kart:  0" << endl;
+	cout << "\033[20;73H" << " Yerdeki Kart:  0" << endl;
+	cout << "\033[21;72H" << "==================" << endl;
+	cout << "\033[22;72H" << "Alttaki Son 3 Kart" << endl;
+	cout << "\033[23;72H" << "------------------" << endl;
+	cout << "\033[24;74H" << char(30) << " ------";
+	cout << "\033[25;74H" << char(30) << " ------";
+	cout << "\033[26;74H" << char(30) << " ------";
+
 
 
 	Deste d;		//	Deste yaptık
@@ -100,15 +126,11 @@ int main() {
 	
 	for (int i = 0; i < 52; i++) {		//	FOR DÖNGÜ BAŞI
 		
-		//cout << "\033[14;0H\033[J";
-		
-		
 		
 		if (yerdekiKart == 0) {			//	- IF Yerdeki Kart 0 başlangıcı
 			
 			if (i % 2 == 0) {			//	-- P1 Başlayacak
 				
-				//oyuncuAdiYazdirAnsiKacis(); // Önce 15 satır ve altını sildirip, Oyuncu/Volkan adını 15.Satır 33 sütundan yazdırma
 				cout << "\033[15;33H";
 				cout << "====== OYUNCU ======" << endl;
 				_getchTutucu = _getch();
@@ -145,7 +167,6 @@ int main() {
 			}							//	-- P1 Devam ediyor Sonu
 			else
 			{							//	-- Volkan devam ediyor	
-				//oyuncuAdiYazdirAnsiKacis();
 				cout << "\033[15;33H";
 				cout << "====== VOLKAN ======" << endl;
 				_getchTutucu = _getch();
@@ -165,6 +186,34 @@ int main() {
 		}								//	- IF Yerdeki Kart 0/DEĞİL sonu
 		
 
+		cout << "\033[21;14H" << setfill(' ') << setw(2) << p1Puan << endl;
+		cout << "\033[22;14H" << setfill(' ') << setw(2) << p2Puan << endl;
+		if (sonAlan == 1979) cout << "\033[25;2H" << "  - OYUNCU -" << endl;
+		if (sonAlan == 1981) cout << "\033[25;2H" << "  - VOLKAN -" << endl;
+		
+		if(i==1){
+			cout << "\033[26;74H" << char(30) << " ";
+			d.kartYazdir(i - 1);
+		}
+		else if (i == 2) {
+			cout << "\033[25;74H" << char(30) << " ";
+			d.kartYazdir(i - 2);
+			cout << "\033[26;74H" << char(30) << " ";
+			d.kartYazdir(i - 1);
+			
+		}
+		else if (i > 3) {
+			cout << "\033[24;74H" << char(30) << " ";
+			d.kartYazdir(i - 1);
+			cout << "\033[25;74H" << char(30) << " ";
+			d.kartYazdir(i - 2);
+			cout << "\033[26;74H" << char(30) << " ";
+			d.kartYazdir(i - 3);
+		}
+		else { cout << "HATA!!" << endl; }
+		
+
+
 
 		//cout << "P1: " << p1Puan << "\tYerdeki Kart: " << yerdekiKart << endl;
 		//cout << "VO: " << p2Puan << "\tKalan Kart  : " << 51-i << endl;
@@ -183,8 +232,6 @@ int main() {
 
 void kartSekillendirici(int _seri, int _deger, int _yerdekiKart, int _kacKartKaldi) {
 
-
-
 	cout << char(6 - _seri)<<endl;
 	cout << _seri << "|" << _deger << "|" << _yerdekiKart << "|" << _kacKartKaldi << endl;
 
@@ -194,7 +241,8 @@ void kartSekillendirici(int _seri, int _deger, int _yerdekiKart, int _kacKartKal
 	int y = rand() % 7 + 17;				//	20	-	+-3 kayabilir max		-	17-23 arası
 	int x = rand() % 9 + 32;				//	35	-	+-4 yana kayabilir max	-	32-40 arası
 	
-	string kartUstuDeger = "E ";
+	// 1 yerine A, J,Q,K karakterleri ve 10 değerinin 2 karakterlik alan kaplamasından dolayı ara IF (EE'ler hata belirteci)
+	string kartUstuDeger = "EE";
 	if (_deger < 2 || _deger > 9) {
 		if (_deger == 1) { kartUstuDeger = "A "; }
 		else if (_deger == 10) { kartUstuDeger = "10"; }
@@ -224,22 +272,26 @@ void kartSekillendirici(int _seri, int _deger, int _yerdekiKart, int _kacKartKal
 	cout << "|           |" << "\033[" << ++y << ";" << x << "H";
 	cout << "|           |" << "\033[" << ++y << ";" << x << "H";
 	cout << "|           |" << "\033[" << ++y << ";" << x << "H";
+	
+	// A,J,Q,K karakterleri ve 10 değerinin 2 karakterlik alan kaplamasından dolayı ara IF (EE'ler hata belirteci)
+	// Ayrıca sağ alt köşedeki gösteriminin 1 karakter daha yakın gösterimi için tekrar belirlendi
+	kartUstuDeger = "EE";
+	if (_deger < 2 || _deger > 9) {
+		if (_deger == 1) { kartUstuDeger = " A"; }
+		else if (_deger == 10) { kartUstuDeger = "10"; }
+		else if (_deger == 11) { kartUstuDeger = " J"; }
+		else if (_deger == 12) { kartUstuDeger = " Q"; }
+		else if (_deger == 13) { kartUstuDeger = " K"; }
+		else { kartUstuDeger = "EE"; }
+	}
+	else {
+		kartUstuDeger = " " + to_string(_deger);
+	}
+
+	
 	cout << "|        " << kartUstuDeger<< " |" << "\033[" << ++y << ";" << x << "H";
 	cout << "\033["; cout << ++y << "; "; cout << x << "H";
 	cout << "'-----------'" << endl;	cout << "\033["; cout << ++y << ";"; cout << x << "H";
 	_fGetchTutucu = _getch();
 }
-
-/*
-#define maca (0)	char(6)
-#define sinek (1)	char(5)
-#define karo (2)	char(4)
-#define kupa (3)	char(3)
-
-//	Define As veya Özel Kartlar
-#define as (1)
-#define bacak (11)
-#define kiz (12)
-#define papaz (13)
-*/
 
