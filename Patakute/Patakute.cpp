@@ -208,10 +208,12 @@ int main() {
 			d.kartYazdir(i - 1);	cout << "     ";
 		}
 		else if (yerdekiKart == 3) {
-			cout << "\033[25;73H" << char(31) << " ";
+			cout << "\033[24;73H" << char(31) << " ";
 			d.kartYazdir(i - 1);	cout << "     ";
-			cout << "\033[26;73H" << char(31) << " ";
+			cout << "\033[25;73H" << char(31) << " ";
 			d.kartYazdir(i - 2);	cout << "     ";
+			//cout << "\033[26;73H" << char(31) << " ";
+			
 		}
 		else if (yerdekiKart > 3) {
 			cout << "\033[24;73H" << char(31) << " ";
