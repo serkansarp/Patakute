@@ -106,14 +106,14 @@ int main() {
 
 
 	// SAĞ TABLO
-	cout << "\033[19;75H" << " Kalan Kart:  0" << endl;
+	cout << "\033[19;75H" << " Kalan Kart: 52" << endl;
 	cout << "\033[20;73H" << " Yerdeki Kart:  0" << endl;
 	cout << "\033[21;72H" << "==================" << endl;
 	cout << "\033[22;72H" << "Alttaki Son 3 Kart" << endl;
 	cout << "\033[23;72H" << "------------------" << endl;
-	cout << "\033[24;74H" << char(30) << " ------";
-	cout << "\033[25;74H" << char(30) << " ------";
-	cout << "\033[26;74H" << char(30) << " ------";
+	cout << "\033[24;73H" << char(31) << " ------     ";
+	cout << "\033[25;73H" << char(31) << " ------     ";
+	cout << "\033[26;73H" << char(31) << " ------     ";
 
 
 
@@ -191,30 +191,39 @@ int main() {
 		if (sonAlan == 1979) cout << "\033[25;2H" << "  - OYUNCU -" << endl;
 		if (sonAlan == 1981) cout << "\033[25;2H" << "  - VOLKAN -" << endl;
 		
-		if(i==1){
-			cout << "\033[26;74H" << char(30) << " ";
-			d.kartYazdir(i - 1);
-		}
-		else if (i == 2) {
-			cout << "\033[25;74H" << char(30) << " ";
-			d.kartYazdir(i - 2);
-			cout << "\033[26;74H" << char(30) << " ";
-			d.kartYazdir(i - 1);
+
+		cout << "\033[19;88H" << setfill(' ') << setw(2) << 51 - i;
+		cout << "\033[20;88H" << setfill(' ') << setw(2) << yerdekiKart;
 			
+			//yerdekiKart << 51 - i;
+
+
+		if(yerdekiKart==0 || yerdekiKart==1){
+			cout << "\033[24;73H" << char(31) << " ------     ";
+			cout << "\033[25;73H" << char(31) << " ------     ";
+			cout << "\033[26;73H" << char(31) << " ------     ";
 		}
-		else if (i > 3) {
-			cout << "\033[24;74H" << char(30) << " ";
-			d.kartYazdir(i - 1);
-			cout << "\033[25;74H" << char(30) << " ";
-			d.kartYazdir(i - 2);
-			cout << "\033[26;74H" << char(30) << " ";
-			d.kartYazdir(i - 3);
+		else if (yerdekiKart == 2) {
+			cout << "\033[24;73H" << char(31) << " ";
+			d.kartYazdir(i - 1);	cout << "     ";
 		}
-		else { cout << "HATA!!" << endl; }
+		else if (yerdekiKart == 3) {
+			cout << "\033[25;73H" << char(31) << " ";
+			d.kartYazdir(i - 1);	cout << "     ";
+			cout << "\033[26;73H" << char(31) << " ";
+			d.kartYazdir(i - 2);	cout << "     ";
+		}
+		else if (yerdekiKart > 3) {
+			cout << "\033[24;73H" << char(31) << " ";
+			d.kartYazdir(i - 1);	cout << "     ";
+			cout << "\033[25;73H" << char(31) << " ";
+			d.kartYazdir(i - 2);	cout << "     ";
+			cout << "\033[26;73H" << char(31) << " ";
+			d.kartYazdir(i - 3);	cout << "     ";
+		} else { cout << "HATA!!" << endl; }
 		
 
-
-
+		
 		//cout << "P1: " << p1Puan << "\tYerdeki Kart: " << yerdekiKart << endl;
 		//cout << "VO: " << p2Puan << "\tKalan Kart  : " << 51-i << endl;
 
