@@ -59,7 +59,9 @@ Gönül Ver OOP Eğitim Seti 38-39. videosu pratiği olarak geliştiriliyor
 
 
 void kartSekillendirici(int, int, int, int);
-
+void kartAlaniTemizle();
+void kartToplayanTemizle();
+void bekle();
 
 int main() {
 	setlocale(LC_ALL, "Turkish");
@@ -91,11 +93,7 @@ int main() {
 	cout << "     \\|__|     \\|__|\\|__|    \\|__|  \\|__|\\|__|\\|__| \\|__|\\|_______|    \\|__|  \\|_______|" << endl;
 	cout << " _______________________________________________________________________________________" << endl;
 
-	//for (int i = 0; i < 50; i++)cout << i << " " << char(i);
 	
-
-
-
 	// SOL TABLO BOŞ veya 0 DEĞERLİ
 	cout << "\033[19;1H" << "   - PUANLAR -"<<endl;
 	cout << " ===============" << endl;
@@ -106,14 +104,14 @@ int main() {
 
 
 	// SAĞ TABLO
-	cout << "\033[19;75H" << " Kalan Kart: 52" << endl;
-	cout << "\033[20;73H" << " Yerdeki Kart:  0" << endl;
-	cout << "\033[21;72H" << "==================" << endl;
-	cout << "\033[22;72H" << "Alttaki Son 3 Kart" << endl;
-	cout << "\033[23;72H" << "------------------" << endl;
-	cout << "\033[24;73H" << char(31) << " ------     ";
-	cout << "\033[25;73H" << char(31) << " ------     ";
-	cout << "\033[26;73H" << char(31) << " ------     ";
+	cout << "\033[19;74H" << " Kalan Kart: 52" << endl;
+	cout << "\033[20;72H" << " Yerdeki Kart:  0" << endl;
+	cout << "\033[21;71H" << "==================" << endl;
+	cout << "\033[22;71H" << "Alttaki Son 3 Kart" << endl;
+	cout << "\033[23;71H" << "------------------" << endl;
+	cout << "\033[24;72H" << char(31) << " ------     ";
+	cout << "\033[25;72H" << char(31) << " ------     ";
+	cout << "\033[26;72H" << char(31) << " ------     ";
 
 
 
@@ -131,19 +129,16 @@ int main() {
 			
 			if (i % 2 == 0) {			//	-- P1 Başlayacak
 				
-				cout << "\033[15;33H";
-				cout << "====== OYUNCU ======" << endl;
+				cout << "\033[15;33H" << "====== OYUNCU ======" << endl;
+				cout << "\033[16;33H" << "- Klik  bekleniyor -";
 				_getchTutucu = _getch();
-				d.kartYazdir(i);	// Kart at
+				cout << "\033[16;33H" << "                   ";
 				yerdekiKart++;		// Yerdeki kart sayısı arttır
 				kartSekillendirici(d.getKartSeri(i), d.getKartDeger(i),yerdekiKart,51-i);
 				
 			}
 			else {						//	-- Volkan başlayacak
-				cout << "\033[15;33H";
-				cout << "====== VOLKAN ======" << endl;
-				_getchTutucu = _getch();
-				d.kartYazdir(i);	// Kart at
+				cout << "\033[15;33H" << "====== VOLKAN ======" << endl;
 				yerdekiKart++;		// Yerdeki kart sayısı arttır
 				kartSekillendirici(d.getKartSeri(i), d.getKartDeger(i), yerdekiKart, 51 - i);
 			}
@@ -152,9 +147,11 @@ int main() {
 		} else {						//	- IF Yerdeki Kart 0 DEĞİLSE		(AŞIRI KURALLI BÖLGE)
 
 			if (i % 2 == 0) {			//	-- P1 Devam ediyor
-				cout << "\033[15;33H";
-				cout << "====== OYUNCU ======" << endl;
+				cout << "\033[15;33H" << "====== OYUNCU ======" << endl;
+				cout << "\033[16;33H" << "- Klik  bekleniyor -";
 				_getchTutucu = _getch();
+				cout << "\033[16;33H" << "                   ";
+
 				yerdekiKart++;		//	Yerdeki kart sayısı arttır
 				kartSekillendirici(d.getKartSeri(i), d.getKartDeger(i), yerdekiKart, 51 - i);
 
@@ -162,15 +159,17 @@ int main() {
 					p1Puan += yerdekiKart;	//	Yerdeki kartların P1'e geçmesi
 					yerdekiKart = 0;		//	Yerdeki kartların Sıfırlanması
 					sonAlan = 1979;			//	Son alanın P1 olarak belirlenmesi
-				}													// --- Eşit değerde kartı P1'in tutturması IF SONU
+					kartAlaniTemizle();
+					cout << "\033[19;34H" "KARTLARI  TOPLAYAN" << "\033[20;38H" << "- OYUNCU -";
+					bekle();
+					kartToplayanTemizle();
+					_getchTutucu = _getch();
+				}						// --- Eşit değerde kartı P1'in tutturması IF SONU
 
 			}							//	-- P1 Devam ediyor Sonu
 			else
 			{							//	-- Volkan devam ediyor	
-				cout << "\033[15;33H";
-				cout << "====== VOLKAN ======" << endl;
-				_getchTutucu = _getch();
-				d.kartYazdir(i);	// Kart at
+				cout << "\033[15;33H" << "====== VOLKAN ======" << endl;
 				yerdekiKart++;		// Yerdeki kart sayısı arttır
 				kartSekillendirici(d.getKartSeri(i), d.getKartDeger(i), yerdekiKart, 51 - i);
 
@@ -178,7 +177,12 @@ int main() {
 					p2Puan += yerdekiKart;	//	Yerdeki kartların Volkan'a geçmesi
 					yerdekiKart = 0;		//	Yerdeki kartların Sıfırlanması
 					sonAlan = 1981;			//	Son alanın Volkan olarak belirlenmesi
-				}													// --- Eşit değerde kartı Volkan'ın tutturması IF SONU
+					kartAlaniTemizle();
+					cout << "\033[19;34H" << "KARTLARI  TOPLAYAN" << "\033[20;38H" << "- VOLKAN -";
+					bekle();
+					kartToplayanTemizle();
+					_getchTutucu = _getch();
+				}						// --- Eşit değerde kartı Volkan'ın tutturması IF SONU
 			}							//	-- Volkan devam ediyor Sonu
 
 
@@ -192,50 +196,48 @@ int main() {
 		if (sonAlan == 1981) cout << "\033[25;2H" << "  - VOLKAN -" << endl;
 		
 
-		cout << "\033[19;88H" << setfill(' ') << setw(2) << 51 - i;
-		cout << "\033[20;88H" << setfill(' ') << setw(2) << yerdekiKart;
+		cout << "\033[19;87H" << setfill(' ') << setw(2) << 51 - i;
+		cout << "\033[20;87H" << setfill(' ') << setw(2) << yerdekiKart;
 			
 			//yerdekiKart << 51 - i;
 
 
 		if(yerdekiKart==0 || yerdekiKart==1){
-			cout << "\033[24;73H" << char(31) << " ------     ";
-			cout << "\033[25;73H" << char(31) << " ------     ";
-			cout << "\033[26;73H" << char(31) << " ------     ";
+			cout << "\033[24;72H" << char(31) << " ------     ";
+			cout << "\033[25;72H" << char(31) << " ------     ";
+			cout << "\033[26;72H" << char(31) << " ------     ";
 		}
 		else if (yerdekiKart == 2) {
-			cout << "\033[24;73H" << char(31) << " ";
+			cout << "\033[24;72H" << char(31) << " ";
 			d.kartYazdir(i - 1);	cout << "     ";
 		}
 		else if (yerdekiKart == 3) {
-			cout << "\033[24;73H" << char(31) << " ";
+			cout << "\033[24;72H" << char(31) << " ";
 			d.kartYazdir(i - 1);	cout << "     ";
-			cout << "\033[25;73H" << char(31) << " ";
-			d.kartYazdir(i - 2);	cout << "     ";
-			//cout << "\033[26;73H" << char(31) << " ";
-			
+			cout << "\033[25;72H" << char(31) << " ";
+			d.kartYazdir(i - 2);	cout << "     ";			
 		}
 		else if (yerdekiKart > 3) {
-			cout << "\033[24;73H" << char(31) << " ";
+			cout << "\033[24;72H" << char(31) << " ";
 			d.kartYazdir(i - 1);	cout << "     ";
-			cout << "\033[25;73H" << char(31) << " ";
+			cout << "\033[25;72H" << char(31) << " ";
 			d.kartYazdir(i - 2);	cout << "     ";
-			cout << "\033[26;73H" << char(31) << " ";
+			cout << "\033[26;72H" << char(31) << " ";
 			d.kartYazdir(i - 3);	cout << "     ";
-		} else { cout << "HATA!!" << endl; }
-		
+		}
+		else {
+			cout << "\033[26;72H" << " !! HATA !!    " << " ";
+		}
 
 		
-		//cout << "P1: " << p1Puan << "\tYerdeki Kart: " << yerdekiKart << endl;
-		//cout << "VO: " << p2Puan << "\tKalan Kart  : " << 51-i << endl;
-
-		
-		
-	}									//	FOR DÖNGÜ SONU
+				
+	}			//	FOR DÖNGÜ SONU
 	
-			
+	cout << "Hesaplama yapılacak";
+
+	_getchTutucu = _getch();
 	return 0;
-}	//	T21B/476 / 40.0007035,32.7898625
+}	
 
 
 
@@ -243,15 +245,11 @@ int main() {
 
 void kartSekillendirici(int _seri, int _deger, int _yerdekiKart, int _kacKartKaldi) {
 
-	cout << char(6 - _seri)<<endl;
-	cout << _seri << "|" << _deger << "|" << _yerdekiKart << "|" << _kacKartKaldi << endl;
-
-	cout << endl;
-	
 	char _fGetchTutucu = '0';
 	int y = rand() % 7 + 17;				//	20	-	+-3 kayabilir max		-	17-23 arası
 	int x = rand() % 9 + 32;				//	35	-	+-4 yana kayabilir max	-	32-40 arası
 	
+
 	// 1 yerine A, J,Q,K karakterleri ve 10 değerinin 2 karakterlik alan kaplamasından dolayı ara IF (EE'ler hata belirteci)
 	string kartUstuDeger = "EE";
 	if (_deger < 2 || _deger > 9) {
@@ -303,6 +301,15 @@ void kartSekillendirici(int _seri, int _deger, int _yerdekiKart, int _kacKartKal
 	cout << "|        " << kartUstuDeger<< " |" << "\033[" << ++y << ";" << x << "H";
 	cout << "\033["; cout << ++y << "; "; cout << x << "H";
 	cout << "'-----------'" << endl;	cout << "\033["; cout << ++y << ";"; cout << x << "H";
-	_fGetchTutucu = _getch();
+	bekle();
 }
 
+void kartAlaniTemizle() {
+	for(int i=17;i<34;i++){	cout << "\033[" << i << ";" << "31H" << "                      "; }
+}
+void kartToplayanTemizle() {
+	cout << "\033[19;34H" << "                   " << "\033[20;34H" << "                   ";
+}
+void bekle() {
+	this_thread::sleep_for(chrono::milliseconds(2017 * 11 / 30 + 2023 * 2 / 6));
+}
