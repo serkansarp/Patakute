@@ -78,7 +78,7 @@ int main() {
 	int p2Deger = 81;
 	char _getchTutucu = '0';
 	
-		
+
 	// Atıflı Ascii Logo çalışması, backslashlarda \\ kullanıldı
 	cout << "  by Serkan SARP			                            Logo: Manytools.org" << endl;
 	cout << " _______________________________________________________________________________________" << endl;
@@ -204,18 +204,17 @@ int main() {
 				cout << "\033[19;33H" <<"-YERDE KART KALMADI-";
 				bekle();
 				kartToplayanTemizle();
-				_getchTutucu = _getch();
 				bekle();
 			}
 			else {
 
 				if (sonAlan == 1979) {
-					cout << "\033[19;36H" << "YERDEKİLER DE" << "\033[20;37H" << "- VOLKAN -" << "\033[21;35H" << "PUANINA EKLENDİ";
+					cout << "\033[19;36H" << "YERDEKİLER DE" << "\033[20;37H" << "- OYUNCU -" << "\033[21;35H" << "PUANINA EKLENDİ";
 					p1Puan += yerdekiKart;
 					yerdekiKart = 0;
 				}
 				else if (sonAlan == 1981) {
-					cout << "\033[19;36H" << "YERDEKİLER DE" << "\033[20;37H" << "- OYUNCU -" << "\033[21;35H" << "PUANINA EKLENDİ";
+					cout << "\033[19;36H" << "YERDEKİLER DE" << "\033[20;37H" << "- VOLKAN -" << "\033[21;35H" << "PUANINA EKLENDİ";
 					p2Puan += yerdekiKart;
 					yerdekiKart = 0;
 				}
@@ -267,25 +266,61 @@ int main() {
 	}			//	FOR DÖNGÜ SONU
 	
 	// OYUN SONU VE PUAN HESAPLAMA (sayı farkı düşükse, o durum da dahil)
-	p1Puan = 26; p2Puan = 26;
 	cout << "\033[22;35H" << "---------------";
 	cout << "\033[23;35H" << "  OYUN  SONU";
 	cout << "\033[24;35H" << "Oyuncu Puanı: " << p1Puan;
 	cout << "\033[25;35H" << "Volkan Puanı: " << p2Puan;
 	if (p1Puan > p2Puan) {
 		cout << "\033[26;35H" << "Kazanan:  OYUNCU";
-		if (p1Puan - p2Puan <= 6)cout << "\033[27;35H" << p1Puan - p2Puan << "kart farkla...";
+		if (p1Puan - p2Puan <= 6)cout << "\033[27;35H" << p1Puan - p2Puan << " kart farkla...";
 	}
 	else if (p2Puan > p1Puan) {
 		cout << "\033[26;35H" << "Kazanan:  VOLKAN";
 		if (p2Puan - p1Puan <= 6)cout << "\033[27;35H" << p2Puan - p1Puan << " kart farkla...";
 	}
 	else if (p1Puan == 26 && p2Puan == 26) {
-		cout << "\033[26;35H" << "Nadiren karşılaşılan bir durum ancak PATA olundu";
+		cout << "\033[26;32H" << "        ---         ";
+		cout << "\033[27;32H" << " Nadir bir durum olan";
+		cout << "\033[28;32H" << "karşılıklı 26'şar kart";
+		cout << "\033[29;32H" << "     kazanılması     ";
+		cout << "\033[30;32H" << "   - PATA olundu -";
 	}
 	else { 
 		cout << " !! HATA !! ";
 	}
+
+
+	
+
+	// UTF-8 kodlama ayarı
+	locale::global(locale("en_US.UTF-8"));
+	// UTF-8 karakterleri içeren çıktı örneği: cout << u8"╚Merhaba, dünya!╚╔╩╦╠═" << endl;
+	cout << "\033[15;25H" << "\033[91m" << u8"              ████  ██▓▓           ";
+	cout << "\033[16;25H" << "\033[91m" << u8"        ██████▓▓▓▓██▓▓▓▓▓▓▓▓██    ██";
+	cout << "\033[17;25H" << "\033[91m" << u8"      ████▓▓▓▓▓▓▓▓██▓▓▓▓██▓▓▓▓██████";
+	cout << "\033[18;25H" << "\033[91m" << u8"    ████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓████";
+	cout << "\033[19;25H" << "\033[91m" << u8"██████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓"<< "\033[92m" <<u8"▒▒"<< "\033[91m" <<u8"▓▓▓▓▓▓▓▓▓▓██";
+	cout << "\033[20;25H" << "\033[91m" << u8"██████▓▓▓▓▓▓▓▓▓▓▒▒▒▒▓▓▒▒▒▒▓▓▓▓▓▓▓▓▓▓████";
+	cout << "\033[21;25H" << "\033[91m" << u8"  ████▓▓▓▓▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▓▓▓██▓▓▓▓";
+	cout << "\033[22;25H" << "\033[91m" << u8"████▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▓████";
+	cout << "\033[23;25H" << "\033[91m" << u8"██▓▓▓▓▓▓▓▓████▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▓▓▓████";
+	cout << "\033[24;25H" << "\033[91m" << u8"▓▓████▓▓▓▓▓▓  ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒██▓▓▓▓████";
+	cout << "\033[25;25H" << "\033[91m" << u8"  ██████      ██▒▒██▒▒▒▒▒▒▒▒██▓▓██▓▓██████";
+	cout << "\033[26;25H" << "\033[91m" << u8"              ██████▒▒▒▒██  ██▓▓▓▓██████▓▓";
+	cout << "\033[27;25H" << "\033[91m" << u8"              ████████████          ██████";
+	cout << "\033[28;25H" << "\033[92m" << u8"              ██████████";
+	cout << "\033[29;25H" << "\033[92m" << u8"                ████████";
+	cout << "\033[30;25H" << "\033[92m" << u8"                ██████";
+	cout << "\033[31;25H" << "\033[92m" << u8"                ████";
+	cout << "\033[32;25H" << "\033[92m" << u8"              ██████";
+	cout << "\033[33;25H" << "\033[92m" << u8"              ████";
+	cout << "\033[34;25H" << "\033[92m" << u8"              ████";
+	cout << "\033[35;25H" << "\033[92m" << u8"              ████";
+	cout << "\033[36;25H" << "\033[92m" << u8"            ██████";
+	cout << "\033[37;25H" << "\033[92m" << u8"            ████";
+	cout << "\033[38;25H" << "\033[92m" << u8"            ████";
+	cout << "\033[39;25H" << "\033[92m" << u8"            ███";
+
 
 	
 	return 0;
@@ -363,3 +398,11 @@ void kartToplayanTemizle() {
 	cout << "\033[19;33H" << "                    " << "\033[20;33H" << "                   ";
 }
 void bekle() { this_thread::sleep_for(chrono::milliseconds(503)); } //803 önceki değer
+
+/*
+ kırmızı
+"\033[91m"
+ 
+ yeşil:
+"\033[92m"
+*/
