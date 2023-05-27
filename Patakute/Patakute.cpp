@@ -62,6 +62,7 @@ int main() {
 	int p1Deger = 79;
 	int p2Deger = 81;
 	char _getchTutucu = '0';
+
 	// Atıflı Ascii Logo çalışması, backslashlarda \\ kullanıldı
 	cout << "  by Serkan SARP			                            Logo: Manytools.org" << endl;
 	cout << " _______________________________________________________________________________________" << endl;
@@ -97,8 +98,8 @@ int main() {
 	cout << "   öğrendiğimiz iskambil oyunudur. ---" << endl;
 	cout << " _______________________________________________________________________________________" << endl;
 	cout << "                          -- Lütfen başlamak için bir tuşa (tercihen Enter) tıklayın  --" << endl;
-		system("pause");
-
+		
+		_getchTutucu = _getch();
 		cout << "\x1B[14;1H\x1B[J";
 
 
@@ -128,20 +129,20 @@ int main() {
 		
 	
 	for (int i = 0; i < 52; i++) {		//	FOR DÖNGÜ BAŞI	- OYUN MOTORUDUR
-			
+
 		if (yerdekiKart == 0) {			//	- IF Yerdeki Kart 0 başlangıcı
-			
+
 			if (i % 2 == 0) {			//	-- P1 Başlayacak
 				cout << "\033[15;33H" << "====== OYUNCU ======" << endl;
 				cout << "\033[16;33H" << " - Tuş bekleniyor -";
 				_getchTutucu = _getch();
-				
+
 				cout << "\033[16;33H" << "                    ";
-				kartSekillendirici(d.getKartSeri(i), d.getKartDeger(i),yerdekiKart,51-i);
+				kartSekillendirici(d.getKartSeri(i), d.getKartDeger(i), yerdekiKart, 51 - i);
 				yerdekiKart++;		// Yerdeki kart sayısı arttır
-				
-				
-				
+
+
+
 			}
 			else {						//	-- Volkan başlayacak
 				cout << "\033[15;33H" << "====== VOLKAN ======" << endl;
@@ -151,7 +152,8 @@ int main() {
 			}
 
 
-		} else {						//	- IF Yerdeki Kart 0 DEĞİLSE	- (KART TOPLAMA KURALLI BÖLGE)
+		}
+		else {						//	- IF Yerdeki Kart 0 DEĞİLSE	- (KART TOPLAMA KURALLI BÖLGE)
 
 			if (i % 2 == 0) {			//	-- P1 Devam ediyor
 				cout << "\033[15;33H" << "====== OYUNCU ======" << endl;
@@ -162,9 +164,9 @@ int main() {
 				cout << "\033[16;33H" << "                    ";
 				kartSekillendirici(d.getKartSeri(i), d.getKartDeger(i), yerdekiKart, 51 - i);
 				yerdekiKart++;		// Yerdeki kart sayısı arttır
-				
 
-				if (d.getKartDeger(i) == d.getKartDeger(i - 1) || d.getKartDeger(i)==11) {	// --- Eşit değerde kartı P1'in tutturması IF'i
+
+				if (d.getKartDeger(i) == d.getKartDeger(i - 1) || d.getKartDeger(i) == 11) {	// --- Eşit değerde kartı P1'in tutturması IF'i
 					p1Puan += yerdekiKart;	//	Yerdeki kartların P1'e geçmesi
 					yerdekiKart = 0;		//	Yerdeki kartların Sıfırlanması
 					sonAlan = 1979;			//	Son alanın P1 olarak belirlenmesi
@@ -182,7 +184,7 @@ int main() {
 				bekle();
 				kartSekillendirici(d.getKartSeri(i), d.getKartDeger(i), yerdekiKart, 51 - i);
 				yerdekiKart++;		// Yerdeki kart sayısı arttır
-				
+
 
 				if (d.getKartDeger(i) == d.getKartDeger(i - 1) || d.getKartDeger(i) == 11) {	// --- Eşit değerde kartı Volkan'ın tutturması IF'i
 					p2Puan += yerdekiKart;	//	Yerdeki kartların Volkan'a geçmesi
@@ -196,15 +198,15 @@ int main() {
 				}						// --- Eşit değerde kartı Volkan'ın tutturması IF SONU
 			}							//	-- Volkan devam ediyor Sonu
 
-					
+
 		}								//	- IF Yerdeki Kart 0/DEĞİL sonu
-		
+
 
 		if (i == 51) {
 			bekle();
 			kartAlaniTemizle();
 			if (yerdekiKart == 0) {
-				cout << "\033[19;33H" <<"-YERDE KART KALMADI-";
+				cout << "\033[19;33H" << "-YERDE KART KALMADI-";
 				bekle();
 				kartToplayanTemizle();
 				bekle();
@@ -227,19 +229,19 @@ int main() {
 
 		}
 
-		
+
 		cout << "\033[21;14H" << setfill(' ') << setw(2) << p1Puan << endl;
 		cout << "\033[22;14H" << setfill(' ') << setw(2) << p2Puan << endl;
 		if (sonAlan == 1979) cout << "\033[25;2H" << "  - OYUNCU -" << endl;
 		if (sonAlan == 1981) cout << "\033[25;2H" << "  - VOLKAN -" << endl;
-		
+
 
 		cout << "\033[19;87H" << setfill(' ') << setw(2) << 51 - i;
 		cout << "\033[20;87H" << setfill(' ') << setw(2) << yerdekiKart;
-			
-			
 
-		if(yerdekiKart==0 || yerdekiKart==1){
+
+
+		if (yerdekiKart == 0 || yerdekiKart == 1) {
 			cout << "\033[24;72H" << char(31) << " ------     ";
 			cout << "\033[25;72H" << char(31) << " ------     ";
 			cout << "\033[26;72H" << char(31) << " ------     ";
@@ -252,7 +254,7 @@ int main() {
 			cout << "\033[24;72H" << char(31) << " ";
 			d.kartYazdir(i - 1);	cout << "     ";
 			cout << "\033[25;72H" << char(31) << " ";
-			d.kartYazdir(i - 2);	cout << "     ";			
+			d.kartYazdir(i - 2);	cout << "     ";
 		}
 		else if (yerdekiKart > 3) {
 			cout << "\033[24;72H" << char(31) << " ";
@@ -265,7 +267,15 @@ int main() {
 		else {
 			cout << "\033[26;72H" << " !! HATA !!    " << " ";
 		}
-						
+
+		if (i >= 46) {	cout << "\033[27;2H" << "* SON KARTLAR!";	}
+	
+			
+			
+			
+			
+
+
 	}			//	FOR DÖNGÜ SONU
 	
 	// OYUN SONU VE PUAN HESAPLAMA (sayı farkı düşükse, o durum da dahil)
@@ -413,4 +423,4 @@ void kartToplayanTemizle() {
 }
 
 // Volkan oyuncusunun kart atmasından önceki bekleme fonksiyonu, farklı yerlerde de kullanılıyor
-void bekle() { this_thread::sleep_for(chrono::milliseconds(803)); }
+void bekle() { this_thread::sleep_for(chrono::milliseconds(203)); }
