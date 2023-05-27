@@ -1,5 +1,5 @@
 ﻿#include <iostream>
-#include <iomanip>	//	Sekme kaymamaması için
+#include <iomanip>	//	Sekme kaymamaması için boşluklarda setw
 #include <clocale>	//	Türkçe
 #include <ctime>	//	srand için
 #include <string>
@@ -29,28 +29,13 @@
 using namespace std;
 
 /*
-Süreç:
-+ 2 kullanıcı p1-p2 yazıldı
-+ Çekilen kartların yazılması ve değerinin gösterilmesi arasındaki sıkıntı giderildi
-+ Belki basit bir kart görüntüsü / ascii veya utf karakter yazımıyla 
-- Kurallar geçirilecek
-- Test
-+ Başlık
-+ 2. oyuncu Volkan'ın olması, en son atılan aynı değerdeki kart ile hepsini toplama ihtimalinin güçlendirilmesi
-ki aynı zamanda çok keyif verici bir hareketti, o ihtimalin kardeşimde kalmasını istedim
-
-
 PATAKÜTE - v.1.1
 2017 sonlarında kaybettiğimiz babam Salim SARP'ın, 2023 başlarında Gliablastoma'dan kaybettiğimiz
-kardeşim Volkan SARP'la bana öğretmiş olduğu oyundur. Bir iskambil destesini kalınlığa bakıp tahminen 2'ye
-ayırarak bölüşülür. Kullanıcılar ellerindeki kağıtların içeriğine bakmadan en üstten yere kartları atarak
-oynarlar. Basit bir oyundur. Aynı kartı denk getiren yerdekileri kendi tarafına toplar. Herhangi bir kart
-hepsini toplar şeklinde bir kural yoktur. Son kağıtları ise en son alan taraf alır. Oyun sonunda en çok kağıt
-toplayan kazanır. Kalınlık ölçümü ya da yakınsa sayılması ile kazanan taraf belirlenir. Birkaç tur halinde
-oynanabilir '5 elin 3'ünü alan kazanır' gibi. Basitliği ve çabuk kurulması, masada, yerde, kanepede, her yerde
-oynanması ile kardeşimle yıllarca oynamışızdır. Ayrıca oyun boyunca hiçbir taraf kazanamazsa kazanan olmaz,
-babamın öğretimi ile PATA olunur. Bilgisayar oyuncu ismi Volkan olarak kalacaktır. İrfan Altıok, Yazılıma
-Gönül Ver OOP Eğitim Seti 38-39. videosu pratiği olarak geliştiriliyor
+kardeşim Volkan SARP'la bana öğretmiş olduğu oyundur. Fiziksel oynanış oyun kapağında yazılmıştır.
+Birkaç tur halinde oynanabilir '5 elin 3'ünü alan kazanır' gibi. Basitliği ve çabuk kurulması, masada,
+yerde, kanepede, her yerde oynanması ile kardeşimle yıllarca oynamışızdır. Ayrıca oyun boyunca hiçbir
+taraf kazanamazsa kazanan olmaz, babamın öğretimi ile PATA olunur. Bilgisayar oyuncu ismi Volkan olarak
+kalacaktır. (İrfan Altıok, Yazılıma Gönül Ver OOP Eğitim Seti 38-39. videosu pratiği olarak geliştiriliyor)
 
 ...Aynı mezarda birlikte uyuyor olan babam ve kardeşimin güzel anısına ithafen...
 */
@@ -77,28 +62,7 @@ int main() {
 	int p1Deger = 79;
 	int p2Deger = 81;
 	char _getchTutucu = '0';
-	/*
-	// UTF-8 kodlama ayarı
-	locale::global(locale("en_US.UTF-8"));
-	// UTF-8 karakterleri içeren çıktı örneği: cout << u8"╚Merhaba, dünya!╚╔╩╦╠═" << endl;
-	cout << "\033[15;25H" << "\033[92m" << u8"              ████  ██▓▓           ";
-	cout << "\033[16;25H" << "\033[32m" << u8"              ████  ██▓▓           ";
-	cout << "\033[17;25H" << "\033[38;5;120m" << u8"              ████  ██▓▓           ";
-	cout << "\033[18;25H" << "\033[38;5;143m" << u8"              ████  ██▓▓           ";
-	cout << "\033[19;25H" << "\033[38;5;29m" << u8"              ████  ██▓▓           ";
-	cout << "\033[20;25H" << "\033[38;5;154m" << u8"              ████  ██▓▓           ";
-	cout << "\033[21;25H" << "\033[38;5;51m" << u8"              ████  ██▓▓           ";
-	cout << "\033[22;25H" << "\033[92m" << u8"              ████  ██▓▓           ";
-	cout << "\033[23;25H" << "\033[92m" << u8"              ████  ██▓▓           ";
-	cout << "\033[24;25H" << "\033[92m" << u8"              ████  ██▓▓           ";
-	cout << "\033[25;25H" << "\033[92m" << u8"              ████  ██▓▓           ";
-	cout << "\033[26;25H" << "\033[92m" << u8"              ████  ██▓▓           ";
-	cout << "\033[27;25H" << "\033[92m" << u8"              ████  ██▓▓           ";
-	system("pause");
-	*/
 	// Atıflı Ascii Logo çalışması, backslashlarda \\ kullanıldı
-	
-	
 	cout << "  by Serkan SARP			                            Logo: Manytools.org" << endl;
 	cout << " _______________________________________________________________________________________" << endl;
 	cout << "                                                   ___   ___ " << endl;
@@ -112,8 +76,32 @@ int main() {
 	cout << "    \\ \\__\\    \\ \\__\\ \\__\\   \\ \\__\\ \\ \\__\\ \\__\\ \\__\\\\ \\__\\ \\_______\\   \\ \\__\\ \\ \\_______\\" << endl;
 	cout << "     \\|__|     \\|__|\\|__|    \\|__|  \\|__|\\|__|\\|__| \\|__|\\|_______|    \\|__|  \\|_______|" << endl;
 	cout << " _______________________________________________________________________________________" << endl;
+	cout << " = TANITIM VE KURALLAR =" << endl;
+	cout << " * Oynanış esnasında kliklediğiniz tuşun herhangi bir harf ya da ENTER olması terminal *" << endl;
+	cout << " *               farklılıkları nedeniyle hata oluşmaması için önemlidir.               *" << endl;
+	cout << " - Bölgesel olarak kişi ve kural sayısı farklılık göstermekle birlikte Pataküte'nin" << endl;
+	cout << "   bu versiyonu 2 kişiliktir. Bilgisayar oyuncusu Volkan'a karşı oynanır." << endl;
+	cout << " - Kart atmak için klavyeden tuşa basmak gerekir. 'Tuş Bekleniyor' uyarısı alırsınız." << endl;
+	cout << " - Fiziksel Oynanışı: Kart destesi karılır, takriben kalınlıklarına bakılarak 2'ye" << endl;
+	cout << "   ayrılır ve oyunculara verilir. Oyuncular atılacak kartları görmeyecek şekilde tutup" << endl;
+	cout << "   üstten sırasıyla atmaya başlarlar. Aynı kartı öncekinin üzerine atan veya Bacak (J)" << endl;
+	cout << "   kartını atan oyuncu, yerdekilerin tamamını alır. Oyun başında tahminen bir 2'ye" << endl;
+	cout << "   bölme işlemi yapıldığından herhangi bir oyuncuda kalan fazla kartlar yerdekilerin" << endl;
+	cout << "   üzerine atılır. Yerdeki kartları da son toplayan oyuncu kendi kartlarına ekler." << endl;
+	cout << " - Oyun sonunda kartlar sayılır, çok kartı (puanı) olan oyuncu, oyunu kazananır." << endl;
+	cout << " - Puan durumu ve son kart toplayan oyuncu ekranın solundaki tablodan; oyun sonuna" << endl;
+	cout << "   kaç kart kaldığı, yerdeki kart sayısı ve son atılan kartın altındaki kartlar," << endl;
+	cout << "   sağındaki tablodan sürekli takip edilebilir." << endl << endl;
+	cout << "   --- Takriben 4 ay önce kaybettiğimiz kardeşim ve ondan 5 yıl öncesinde kaybettiğimiz" << endl;
+	cout << "   babamın güzel anılarına ithafen, kardeşimle birlikte en çok oynadığımız, babamdan" << endl;
+	cout << "   öğrendiğimiz iskambil oyunudur. ---" << endl;
+	cout << " _______________________________________________________________________________________" << endl;
+	cout << "                          -- Lütfen başlamak için bir tuşa (tercihen Enter) tıklayın  --" << endl;
+		system("pause");
 
-	
+		cout << "\x1B[14;1H\x1B[J";
+
+
 	// SOL TABLO BOŞ veya 0 DEĞERLİ
 	cout << "\033[19;1H" << "   - PUANLAR -"<<endl;
 	cout << " ===============" << endl;
@@ -137,21 +125,17 @@ int main() {
 
 	Deste d;		//	Deste yaptık
 	d.karistir();	//	Parametresiz gönderip 15180 kartı birbiriyle random yer değiştirdik, anlamı metod yorumundadır
-	//	d.desteYazdir(); system("pause");	//	Gerektiğinde kullanmak için
-	
-	
-	
+		
 	
 	for (int i = 0; i < 52; i++) {		//	FOR DÖNGÜ BAŞI	- OYUN MOTORUDUR
-		
-		
+			
 		if (yerdekiKart == 0) {			//	- IF Yerdeki Kart 0 başlangıcı
 			
 			if (i % 2 == 0) {			//	-- P1 Başlayacak
 				cout << "\033[15;33H" << "====== OYUNCU ======" << endl;
-				cout << "\033[16;33H" << "- Enter bekleniyor -";
+				cout << "\033[16;33H" << " - Tuş bekleniyor -";
 				_getchTutucu = _getch();
-				//system("pause");
+				
 				cout << "\033[16;33H" << "                    ";
 				kartSekillendirici(d.getKartSeri(i), d.getKartDeger(i),yerdekiKart,51-i);
 				yerdekiKart++;		// Yerdeki kart sayısı arttır
@@ -171,8 +155,8 @@ int main() {
 
 			if (i % 2 == 0) {			//	-- P1 Devam ediyor
 				cout << "\033[15;33H" << "====== OYUNCU ======" << endl;
-				cout << "\033[16;33H" << "- Enter bekleniyor -";
-				_getchTutucu = '0';
+				cout << "\033[16;33H" << " - Tuş bekleniyor -";
+				_getchTutucu = _getch();
 				cout << _getchTutucu;
 				//system("pause");
 				cout << "\033[16;33H" << "                    ";
@@ -307,40 +291,45 @@ int main() {
 	else { 
 		cout << " !! HATA !! ";
 	}
+	cout << "\033[16;33H" << "** Tuş bekleniyor **";
+	_getchTutucu = _getch();
+	
 
 	// UTF-8 kodlama ayarı
 	locale::global(locale("en_US.UTF-8"));
 	// UTF-8 karakterleri içeren çıktı örneği: cout << u8"╚Merhaba, dünya!╚╔╩╦╠═" << endl;
-	cout << "\033[15;25H" << "\033[91m" << u8"               ████  ██▓▓      ";
-	cout << "\033[16;25H" << u8"        ██████▓▓▓▓██▓▓▓▓▓▓▓▓██    ██";
-	cout << "\033[17;25H" << u8"      ████▓▓▓▓▓▓▓▓██▓▓▓▓██▓▓▓▓██████";
-	cout << "\033[18;25H" << u8"    ████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓████";
-	cout << "\033[19;25H" << u8"██████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓" << "\033[92m" << u8"▒▒" << "\033[91m" << u8"▓▓▓▓▓▓▓▓▓▓██";
-	cout << "\033[20;25H" << u8"██████▓▓▓▓▓▓▓▓▓▓" << "\033[92m" << u8"▒▒▒▒" << "\033[91m" << u8"▓▓" << "\033[92m" << u8"▒▒▒▒" << "\033[91m" << u8"▓▓▓▓▓▓▓▓▓▓████";
-	cout << "\033[21;25H" << u8"  ████▓▓▓▓▓▓" << "\033[92m" << u8"▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒" << "\033[91m" << u8"▓▓▓▓██▓▓▓▓";
-	cout << "\033[22;25H" << u8"████▓▓▓▓▓▓▓▓" << "\033[92m" << u8"▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒" << "\033[91m" << u8"▓▓████";
-	cout << "\033[23;25H" << u8"██▓▓▓▓▓▓▓▓████" << "\033[92m" << u8"▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒" << "\033[91m" << u8"▓▓▓▓████";
-	cout << "\033[24;25H" << u8"▓▓████▓▓▓▓▓▓  " << "\033[92m" << u8"▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒" << "\033[91m"<< u8"██▓▓▓▓████";
-	cout << "\033[25;25H" << u8"  ██████      "<<"\033[92m"<< u8"██▒▒██▒▒▒▒▒▒▒▒"<<"\033[91m"<< u8"██▓▓██▓▓██████";
-	cout << "\033[26;25H" << "             "<<"\033[92m"<< u8"██████▒▒▒▒██"<<"\033[91m"<< u8"  ██▓▓▓▓██████▓▓";
-	cout << "\033[27;25H" << "             "<<"\033[92m"<< u8"████████████"<<"\033[91m"<< u8"          ██████";
-	cout << "\033[28;25H" << "             " << "\033[92m" << u8"██████████";
-	cout << "\033[29;25H" << u8"                ████████";
-	cout << "\033[30;25H" << u8"                ██████";
-	cout << "\033[31;25H" << u8"                ████";
-	cout << "\033[32;25H" << u8"              ██████";
+	cout << "\033[14;25H" << "\033[91m" << u8"               ████  ██▓▓      ";
+	cout << "\033[15;25H" << u8"        ██████▓▓▓▓██▓▓▓▓▓▓▓▓██    ██";
+	cout << "\033[16;25H" << u8"      ████▓▓▓▓▓▓▓▓██▓▓▓▓██▓▓▓▓██████";
+	cout << "\033[17;25H" << u8"    ████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓████";
+	cout << "\033[18;25H" << u8"██████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓" << "\033[92m" << u8"▒▒" << "\033[91m" << u8"▓▓▓▓▓▓▓▓▓▓██";
+	cout << "\033[19;25H" << u8"██████▓▓▓▓▓▓▓▓▓▓" << "\033[92m" << u8"▒▒▒▒" << "\033[91m" << u8"▓▓" << "\033[92m" << u8"▒▒▒▒" << "\033[91m" << u8"▓▓▓▓▓▓▓▓▓▓████";
+	cout << "\033[20;25H" << u8"  ████▓▓▓▓▓▓" << "\033[92m" << u8"▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒" << "\033[91m" << u8"▓▓▓▓██▓▓▓▓";
+	cout << "\033[21;25H" << u8"████▓▓▓▓▓▓▓▓" << "\033[92m" << u8"▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒" << "\033[91m" << u8"▓▓████";
+	cout << "\033[22;25H" << u8"██▓▓▓▓▓▓▓▓████" << "\033[92m" << u8"▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒" << "\033[91m" << u8"▓▓▓▓████";
+	cout << "\033[23;25H" << u8"▓▓████▓▓▓▓▓▓  " << "\033[92m" << u8"▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒" << "\033[91m"<< u8"██▓▓▓▓████";
+	cout << "\033[24;25H" << u8"  ██████      "<<"\033[92m"<< u8"██▒▒██▒▒▒▒▒▒▒▒"<<"\033[91m"<< u8"██▓▓██▓▓██████";
+	cout << "\033[25;25H" << "             "<<"\033[92m"<< u8"██████▒▒▒▒██"<<"\033[91m"<< u8"  ██▓▓▓▓██████▓▓";
+	cout << "\033[26;25H" << "             "<<"\033[92m"<< u8"████████████"<<"\033[91m"<< u8"          ██████";
+	cout << "\033[27;25H" << "             " << "\033[92m" << u8"██████████      ";
+	cout << "\033[28;25H" << u8"                ████████      ";
+	cout << "\033[29;25H" << u8"                ██████  ";
+	cout << "\033[30;25H" << u8"                ████     ";
+	cout << "\033[31;25H" << u8"              ██████";
+	cout << "\033[32;25H" << u8"              ████";
 	cout << "\033[33;25H" << u8"              ████";
 	cout << "\033[34;25H" << u8"              ████";
-	cout << "\033[35;25H" << u8"              ████";
-	cout << "\033[36;25H" << u8"            ██████";
-	cout << "\033[37;25H" << u8"            ████";
-	cout << "\033[38;25H" << u8"            ████";
-	cout << "\033[39;25H" << u8"            ███ " << "\033[0m";
-	if (rand() % 2 == 1){
-		cout << "Bu karanfil Babam i" << u8"ç" << "in...";
-	}else{
-		cout << "Bu karanfil Volkan i" << u8"ç" << "in...";
+	cout << "\033[35;25H" << u8"            ██████";
+	cout << "\033[36;25H" << u8"            ████  "<< "\033[0m";
+	if (rand() % 2 == 1) {
+		cout << "   Babam i" << u8"ç" << "in bir karanfil...";
 	}
+	else {
+		cout << "   Volkan i" << u8"ç" << "in bir karanfil...";
+	}
+	cout << "\033[37;25H" << "\033[92m" << u8"            ████";
+	cout << "\033[38;25H" << u8"            ███ " << "\033[0m";
+	bekle();
 	
 	
 
@@ -412,18 +401,16 @@ void kartSekillendirici(int _seri, int _deger, int _yerdekiKart, int _kacKartKal
 	cout << "'-----------'" << endl;	cout << "\033["; cout << ++y << ";"; cout << x << "H";
 }
 
+// Kartlar toplandığında veya oyun sonu gibi durumlarda kart alanı temizlemek için
 void kartAlaniTemizle() {
 	for(int i=17;i<34;i++){	cout << "\033[" << i << ";" << "31H" << "                      "; }
 }
+
+// Üstteki fonksiyondan farklı olarak daha küçük bir alanı temizler, daha az zaman harcar
+// Kartlartı toplayan oyuncunun yazdırıldığı 2 satırlık bölgeyi temizler
 void kartToplayanTemizle() {
 	cout << "\033[19;33H" << "                    " << "\033[20;33H" << "                   ";
 }
-void bekle() { this_thread::sleep_for(chrono::milliseconds(503)); } //803 önceki değer
 
-/*
- kırmızı
-"\033[91m"
- 
- yeşil:
-"\033[92m"
-*/
+// Volkan oyuncusunun kart atmasından önceki bekleme fonksiyonu, farklı yerlerde de kullanılıyor
+void bekle() { this_thread::sleep_for(chrono::milliseconds(803)); }
