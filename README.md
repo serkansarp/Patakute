@@ -1,4 +1,4 @@
-# _Patakute_
+# _Pataküte_
 
 #### Takriben 4 ay önce kaybettiğimiz kardeşim ve ondan 5 yıl öncesinde kaybettiğimiz babamın güzel anılarına ithafen, kardeşimle birlikte en çok oynadığımız, babamdan öğrendiğimiz iskambil oyunudur.
 
