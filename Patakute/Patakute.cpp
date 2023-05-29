@@ -68,7 +68,7 @@ int main() {
 	cout << " _______________________________________________________________________________________" << endl;
 	cout << "                                                   ___   ___ " << endl;
 	cout << " \033[90m" << "11.2017 Babamın ve"<<"\033[0m" <<"                               |\\__\\ |\\__\\"<< "\033[90m"<<"      T21B / 476, Karşıyaka" << "\033[0m" <<endl;
-	cout << "\033[90m" << " 02.2023 Kardeşimin güzel anılarına ithafen..." << "\033[0m" << "    \\|__| \\|__| " << "\033[90m" << "    40.0002459, 32.7889089      "<< "\033[0m" << endl;
+	cout << "\033[90m" << " 02.2023 Kardeşimin güzel anılarına ithafen..." << "\033[0m" << "    \\|__| \\|__|" << "\033[90m" << " 40.000561689, 32.7900372108      "<< "\033[0m" << endl;
 	cout << "  ________  ________  _________  ________  ___  __    ___  ___  _________  _______" << endl;
 	cout << " |\\   __  \\|\\   __  \\|\\___   ___|\\   __  \\|\\  \\|\\  \\ |\\  \\|\\  \\|\\___   __\\|\\  ___ \\" << endl;
 	cout << " \\ \\  \\|\\  \\ \\  \\|\\  \\|___ \\  \\_\\ \\  \\|\\  \\ \\  \\/  /|\\ \\  \\\\\\  \\|___ \\  \\/\\ \\   __/|" << endl;
@@ -423,4 +423,4 @@ void kartToplayanTemizle() {
 }
 
 // Volkan oyuncusunun kart atmasından önceki bekleme fonksiyonu, farklı yerlerde de kullanılıyor
-void bekle() { this_thread::sleep_for(chrono::milliseconds(203)); }
+void bekle() { this_thread::sleep_for(chrono::milliseconds(803)); }
