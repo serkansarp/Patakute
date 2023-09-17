@@ -10,6 +10,5 @@
 #### Program da olabildiğince bunlara uygun geliştirilmeye çalışılmıştır. Dağınık oynanır. Kartlar sürekli birbirinin üzerine gelmez. Arkasındaki kart büyük ihtimalle görülebilir.
 #### Ekranın sol ve sağındaki tablolardan son puan durumu, kartları son toplayan oyuncu, yerdeki kart sayısı ve oyun bitimine kalan kart sayısı sürekli takip edilebilir. Ayrıca son atılan kartın altındaki 3 kart için de sağda bir bölüm vardır. 
 #### Minimum Sistem Gereksinimleri: 92x40 char terminal (akışı düzgün görebilmek için)
-#### Kod, bol bilgisel ve anısal yorumludur.
 #### Her oyun sonu babama ya da Volkan'a bir karanfil bırakmayı ihmal etmeyiniz.
 ##### <ins>Serkan SARP - Ankara</ins>
